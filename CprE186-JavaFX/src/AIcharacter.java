@@ -57,7 +57,7 @@ public class AIcharacter extends Application {
 	
 	private void checkState() {
 		for(Node enemy : enemies) {
-			if(enemy.getBoundsInParent().intersects(.getBoundsInParent())) {
+			if(enemy.getBoundsInParent().intersects(sides.getBoundsInParent())) {
 				enemy.setTranslateX(650);
 				enemy.setTranslateY(875);
 				return;
