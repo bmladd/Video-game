@@ -30,7 +30,7 @@ public class CollisionBox {
 		bottomRight[1] = yPositions[1];
 	}
 
-	public CollisionBox(CollisionBox other, int xTranslate, int yTranslate){
+	public CollisionBox(CollisionBox other, int xTranslate, int yTranslate) {
 		xPositions[0] = other.getMinX() + xTranslate;
 		xPositions[1] = xPositions[0] + other.getWidth();
 		yPositions[0] = other.getMinY() + yTranslate;
@@ -90,8 +90,9 @@ public class CollisionBox {
 
 	/**
 	 * Checks to see if another CollisionBox overlaps this one.
+	 *
 	 * @param other
-	 * 	Another CollisionBox to compare against this one.
+	 *            Another CollisionBox to compare against this one.
 	 * @return Whether the CollisionBox is colliding.
 	 */
 	public boolean isColliding(CollisionBox other) {
@@ -99,81 +100,94 @@ public class CollisionBox {
 		int[] otherTopRight = other.getTopRight();
 		int[] otherBottomLeft = other.getBottomLeft();
 		int[] otherBottomRight = other.getBottomRight();
-		if(isPointInside(otherTopLeft)) return true;
-		if(isPointInside(otherTopRight)) return true;
-		if(isPointInside(otherBottomLeft)) return true;
-		if(isPointInside(otherBottomRight)) return true;
+		if (isPointInside(otherTopLeft))
+			return true;
+		if (isPointInside(otherTopRight))
+			return true;
+		if (isPointInside(otherBottomLeft))
+			return true;
+		if (isPointInside(otherBottomRight))
+			return true;
 		return false;
 	}
 
-	public boolean isColliding(ArrayList<CollisionBox> others){
-		for(int i = 0; i < others.size(); i++){
+	public boolean isColliding(ArrayList<CollisionBox> others) {
+		for (int i = 0; i < others.size(); i++) {
 			CollisionBox other = others.get(i);
 			int[] otherTopLeft = other.getTopLeft();
 			int[] otherTopRight = other.getTopRight();
 			int[] otherBottomLeft = other.getBottomLeft();
 			int[] otherBottomRight = other.getBottomRight();
-			if(isPointInside(otherTopLeft)) return true;
-			if(isPointInside(otherTopRight)) return true;
-			if(isPointInside(otherBottomLeft)) return true;
-			if(isPointInside(otherBottomRight)) return true;
+			if (isPointInside(otherTopLeft))
+				return true;
+			if (isPointInside(otherTopRight))
+				return true;
+			if (isPointInside(otherBottomLeft))
+				return true;
+			if (isPointInside(otherBottomRight))
+				return true;
 		}
 		return false;
 	}
 
-
 	/**
+	 * Checks to see if this CollisionBox will collide with a specific other
+	 * CollisionBox after it moves
 	 *
 	 * @param other
 	 * @param xMove
 	 * @param yMove
-	 * @return
+	 * @return Whether this collision box will collide with the other.
 	 */
-	public boolean willCollide(CollisionBox other, int xMove, int yMove){
-		CollisionBox nextPos = new CollisionBox(other.getMinX() + xMove,
-				other.getMinY() + yMove, other.getHeight(), other.getWidth());
+	public boolean willCollide(CollisionBox other, int xMove, int yMove) {
+		CollisionBox nextPos = new CollisionBox(this, xMove, yMove);
 		return isColliding(nextPos);
 	}
 
 	/**
-	 * Checks to see if this CollisionBox will collide with any other CollisionBox
-	 * after it moves
+	 * Checks to see if this CollisionBox will collide with any other
+	 * CollisionBox after it moves
+	 *
 	 * @param others
 	 * @param xMove
 	 * @param yMove
 	 * @return Whether or not this CollisionBox will collide after a move
 	 */
-	public boolean willThisCollide(ArrayList<CollisionBox> others, int xMove, int yMove){
+	public boolean willThisCollide(ArrayList<CollisionBox> others, int xMove, int yMove) {
 		CollisionBox nextPos = new CollisionBox(this, xMove, yMove);
 		return nextPos.isColliding(others);
 	}
 
 	/**
-	 * Checks to see if, when this CollisionBox moves, it will collide with this CollisionBox
-	 * and finds what object it will collide with.
+	 * Checks to see if, when this CollisionBox moves, it will collide with this
+	 * CollisionBox and finds what object it will collide with.
+	 *
 	 * @param others
 	 * @param xMove
 	 * @param yMove
-	 * @return Returns the index of the object colliding with this one after it moves
+	 * @return Returns the index of the object colliding with this one after it
+	 *         moves
 	 */
-	public int indexOfCollidingObject(ArrayList<CollisionBox> others, int xMove, int yMove){
+	public int indexOfCollidingObject(ArrayList<CollisionBox> others, int xMove, int yMove) {
 		CollisionBox nextPos = new CollisionBox(this, xMove, yMove);
-		if(willThisCollide(others, xMove, yMove)){
+		if (willThisCollide(others, xMove, yMove)) {
 			return nextPos.indexOfCollidingObject(others);
 		}
 		return -1;
 	}
 
 	/**
-	 * Checks to see if this object is colliding with any other object, and returns
-	 * the index of the object it is colliding with
+	 * Checks to see if this object is colliding with any other object, and
+	 * returns the index of the object it is colliding with
+	 *
 	 * @param others
-	 * @return The index of the CollisionBox that is colliding with this CollisionBox
+	 * @return The index of the CollisionBox that is colliding with this
+	 *         CollisionBox
 	 */
-	public int indexOfCollidingObject(ArrayList<CollisionBox> others){
-		if(isColliding(others)){
-			for(int i = 0; i < others.size(); i++){
-				if(isColliding(others.get(i))){
+	public int indexOfCollidingObject(ArrayList<CollisionBox> others) {
+		if (isColliding(others)) {
+			for (int i = 0; i < others.size(); i++) {
+				if (isColliding(others.get(i))) {
 					return i;
 				}
 			}
@@ -181,21 +195,17 @@ public class CollisionBox {
 		return -1;
 	}
 
-
-
-
-
-	private boolean isPointInside(int x, int y){
-		if((x < getMaxX()) && (x > getMinX()) && (y > getMinY()) && (y < getMinX())){
+	private boolean isPointInside(int x, int y) {
+		if ((x < getMaxX()) && (x > getMinX()) && (y > getMinY()) && (y < getMinX())) {
 			return true;
 		}
 		return false;
 	}
 
-	private boolean isPointInside(int[] point){
+	private boolean isPointInside(int[] point) {
 		int x = point[0];
 		int y = point[1];
-		if((x < getMaxX()) && (x > getMinX()) && (y > getMinY()) && (y < getMinX())){
+		if ((x < getMaxX()) && (x > getMinX()) && (y > getMinY()) && (y < getMinX())) {
 			return true;
 		}
 		return false;
