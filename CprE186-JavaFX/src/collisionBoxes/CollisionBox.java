@@ -1,211 +1,126 @@
 package collisionBoxes;
 
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class CollisionBox {
-	private int[] xPositions = new int[2];
-	private int[] yPositions = new int[2];
-	private int[] topLeft = new int[2];
-	private int[] topRight = new int[2];
-	private int[] bottomLeft = new int[2];
-	private int[] bottomRight = new int[2];
-	private int height;
-	private int width;
+	private Rectangle cBox;
+	private Point topLeft;
+	private Point topRight;
+	private Point bottomLeft;
+	private Point bottomRight;
 
 	public CollisionBox(int givenX, int givenY, int givenWidth, int givenHeight) {
-		xPositions[0] = givenX;
-		xPositions[1] = givenX + givenWidth;
-		yPositions[0] = givenY - givenHeight;
-		yPositions[1] = givenY;
-		height = givenHeight;
-		width = givenWidth;
-		topLeft[0] = xPositions[0];
-		topRight[0] = xPositions[1];
-		bottomLeft[0] = xPositions[0];
-		bottomRight[0] = xPositions[1];
-
-		topLeft[1] = yPositions[0];
-		topRight[1] = yPositions[1];
-		bottomLeft[1] = yPositions[0];
-		bottomRight[1] = yPositions[1];
+		cBox = new Rectangle(givenX, givenY, givenWidth, givenHeight);
+		topLeft = cBox.getLocation();
+		topRight = new Point(topLeft.x + (int)cBox.getWidth(), topLeft.y);
+		bottomLeft = new Point(topLeft.x, topLeft.y + (int)cBox.getHeight());
+		bottomRight = new Point(topLeft.x + (int)cBox.getWidth(), topLeft.y + (int)cBox.getHeight());
 	}
 
-	public CollisionBox(CollisionBox other, int xTranslate, int yTranslate) {
-		xPositions[0] = other.getMinX() + xTranslate;
-		xPositions[1] = xPositions[0] + other.getWidth();
-		yPositions[0] = other.getMinY() + yTranslate;
-		yPositions[1] = yPositions[0] + other.getHeight();
-		height = other.getHeight();
-		width = other.getWidth();
-		topLeft[0] = xPositions[0];
-		topRight[0] = xPositions[1];
-		bottomLeft[0] = xPositions[0];
-		bottomRight[0] = xPositions[1];
-
-		topLeft[1] = yPositions[0];
-		topRight[1] = yPositions[1];
-		bottomLeft[1] = yPositions[0];
-		bottomRight[1] = yPositions[1];
+	public CollisionBox(CollisionBox givenBox) {
+		cBox = givenBox.getRectangle();
+		topLeft = givenBox.getTopLeft();
+		topRight = givenBox.getTopRight();
+		bottomLeft = givenBox.getBottomLeft();
+		bottomRight = givenBox.getBottomRight();
 	}
 
-	public int getMinX() {
-		return xPositions[0];
+	public Rectangle getRectangle() {
+		return cBox;
 	}
 
-	public int getMaxX() {
-		return xPositions[1];
-	}
-
-	public int getMinY() {
-		return yPositions[0];
-	}
-
-	public int getMaxY() {
-		return yPositions[1];
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int[] getTopLeft() {
+	public Point getTopLeft() {
 		return topLeft;
 	}
 
-	public int[] getTopRight() {
+	public Point getTopRight() {
 		return topRight;
 	}
 
-	public int[] getBottomLeft() {
+	public Point getBottomLeft() {
 		return bottomLeft;
 	}
 
-	public int[] getBottomRight() {
+	public Point getBottomRight() {
 		return bottomRight;
 	}
 
-	/**
-	 * Checks to see if another CollisionBox overlaps this one.
-	 *
-	 * @param other
-	 *            Another CollisionBox to compare against this one.
-	 * @return Whether the CollisionBox is colliding.
-	 */
-	public boolean isColliding(CollisionBox other) {
-		int[] otherTopLeft = other.getTopLeft();
-		int[] otherTopRight = other.getTopRight();
-		int[] otherBottomLeft = other.getBottomLeft();
-		int[] otherBottomRight = other.getBottomRight();
-		if (isPointInside(otherTopLeft))
-			return true;
-		if (isPointInside(otherTopRight))
-			return true;
-		if (isPointInside(otherBottomLeft))
-			return true;
-		if (isPointInside(otherBottomRight))
-			return true;
-		return false;
+	public void moveBoxTo(int xPos, int yPos){
+		cBox.setLocation(xPos, yPos);
+		topLeft = cBox.getLocation();
+		topRight = new Point(topLeft.x + (int)cBox.getWidth(), topLeft.y);
+		bottomLeft = new Point(topLeft.x, topLeft.y + (int)cBox.getHeight());
+		bottomRight = new Point(topLeft.x + (int)cBox.getWidth(), topLeft.y + (int)cBox.getHeight());
 	}
 
-	public boolean isColliding(ArrayList<CollisionBox> others) {
-		for (int i = 0; i < others.size(); i++) {
-			CollisionBox other = others.get(i);
-			int[] otherTopLeft = other.getTopLeft();
-			int[] otherTopRight = other.getTopRight();
-			int[] otherBottomLeft = other.getBottomLeft();
-			int[] otherBottomRight = other.getBottomRight();
-			if (isPointInside(otherTopLeft))
-				return true;
-			if (isPointInside(otherTopRight))
-				return true;
-			if (isPointInside(otherBottomLeft))
-				return true;
-			if (isPointInside(otherBottomRight))
-				return true;
+	public void translateBox(int xMove, int yMove){
+		cBox.translate(xMove, yMove);
+		topLeft = cBox.getLocation();
+		topRight = new Point(topLeft.x + (int)cBox.getWidth(), topLeft.y);
+		bottomLeft = new Point(topLeft.x, topLeft.y + (int)cBox.getHeight());
+		bottomRight = new Point(topLeft.x + (int)cBox.getWidth(), topLeft.y + (int)cBox.getHeight());
+	}
+
+	public void translateBoxNoCollisions(ArrayList<CollisionBox> boxes, int xMove, int yMove){
+		int distX = 0;
+		int distY = 0;
+		for(int i = 0; i <= xMove; i++){
+			if(canMoveX(boxes, i)){
+				distX = i;
+			}
+			else{
+				break;
+			}
+		}
+		translateBox(distX, 0);
+		for(int i = 0; i <= yMove; i++){
+			if(canMoveY(boxes, i)){
+				distY = i;
+			}
+			else{
+				break;
+			}
+		}
+		translateBox(0, distY);
+	}
+
+	public boolean isColliding(CollisionBox otherBox) {
+		if (cBox.intersects(otherBox.getRectangle())) {
+			return true;
+		}
+		if (cBox.contains(otherBox.getRectangle())) {
+			return true;
+		}
+		if (otherBox.getRectangle().contains(cBox)) {
+			return true;
 		}
 		return false;
 	}
 
-	/**
-	 * Checks to see if this CollisionBox will collide with a specific other
-	 * CollisionBox after it moves
-	 *
-	 * @param other
-	 * @param xMove
-	 * @param yMove
-	 * @return Whether this collision box will collide with the other.
-	 */
-	public boolean willCollide(CollisionBox other, int xMove, int yMove) {
-		CollisionBox nextPos = new CollisionBox(this, xMove, yMove);
-		return isColliding(nextPos);
-	}
-
-	/**
-	 * Checks to see if this CollisionBox will collide with any other
-	 * CollisionBox after it moves
-	 *
-	 * @param others
-	 * @param xMove
-	 * @param yMove
-	 * @return Whether or not this CollisionBox will collide after a move
-	 */
-	public boolean willThisCollide(ArrayList<CollisionBox> others, int xMove, int yMove) {
-		CollisionBox nextPos = new CollisionBox(this, xMove, yMove);
-		return nextPos.isColliding(others);
-	}
-
-	/**
-	 * Checks to see if, when this CollisionBox moves, it will collide with this
-	 * CollisionBox and finds what object it will collide with.
-	 *
-	 * @param others
-	 * @param xMove
-	 * @param yMove
-	 * @return Returns the index of the object colliding with this one after it
-	 *         moves
-	 */
-	public ArrayList<Integer> indexOfCollidingObject(ArrayList<CollisionBox> others, int xMove, int yMove) {
-		CollisionBox nextPos = new CollisionBox(this, xMove, yMove);
-		return nextPos.indexOfCollidingObject(others);
-	}
-
-	/**
-	 * Checks to see if this object is colliding with any other object, and
-	 * returns the index of the object it is colliding with
-	 *
-	 * @param others
-	 * @return The index of the CollisionBox that is colliding with this
-	 *         CollisionBox
-	 */
-	public ArrayList<Integer> indexOfCollidingObject(ArrayList<CollisionBox> others) {
-		ArrayList <Integer> collisionIndices = new ArrayList<Integer>();
-		if (isColliding(others)) {
-			for (int i = 0; i < others.size(); i++) {
-				if (isColliding(others.get(i))) {
-					collisionIndices.add(i);
+	public boolean isColliding(ArrayList<CollisionBox> boxes){
+		for(int i = 0; i < boxes.size(); i++){
+			if(!this.equals(boxes.get(i))){
+				if(isColliding(boxes.get(i))){
+					return true;
 				}
 			}
 		}
-		return collisionIndices;
-	}
-
-	private boolean isPointInside(int x, int y) {
-		if ((x < getMaxX()) && (x > getMinX()) && (y > getMinY()) && (y < getMinX())) {
-			return true;
-		}
 		return false;
 	}
 
-	private boolean isPointInside(int[] point) {
-		int x = point[0];
-		int y = point[1];
-		if ((x < getMaxX()) && (x > getMinX()) && (y > getMinY()) && (y < getMinX())) {
-			return true;
-		}
-		return false;
+	public boolean canMoveX(ArrayList<CollisionBox> boxes ,int xTranslate) {
+		return canMove(boxes, xTranslate, 0);
+	}
+
+	public boolean canMoveY(ArrayList<CollisionBox> boxes ,int yTranslate){
+		return canMove(boxes, 0, yTranslate);
+	}
+
+	public boolean canMove(ArrayList<CollisionBox> boxes, int xTranslate, int yTranslate){
+		CollisionBox nextPosition = new CollisionBox(this);
+		nextPosition.translateBox(xTranslate, yTranslate);
+		return !nextPosition.isColliding(boxes);
 	}
 }
