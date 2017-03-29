@@ -48,9 +48,9 @@ public class GameDevStart extends Application {
 
 		//Image earth = new Image( "https://raw.githubusercontent.com/tutsplus/Introduction-to-JavaFX-for-Game-Development/master/earth.png" );
 		//Image sun = new Image("file:sun.png");
-		Image space = new Image( "file:testing/Courtyard.png" );
+		Image space = new Image( "file:JavaFXGameMaps/ForestLake.png" );
 		Image TitleScreen = new Image("file:testing/TitleScreen.png");
-		Image hero = new Image("file:testing/hero.png", 50, 64, true, false);
+		Image hero = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
 		final long startNanoTime = System.nanoTime();
 
 
