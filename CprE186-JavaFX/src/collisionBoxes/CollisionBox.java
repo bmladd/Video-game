@@ -12,7 +12,7 @@ public class CollisionBox {
 	private int height;
 	private int width;
 
-	public CollisionBox(int givenX, int givenY, int givenHeight, int givenWidth) {
+	public CollisionBox(int givenX, int givenY, int givenWidth, int givenHeight) {
 		xPositions[0] = givenX;
 		xPositions[1] = givenX + givenWidth;
 		yPositions[0] = givenY - givenHeight;
