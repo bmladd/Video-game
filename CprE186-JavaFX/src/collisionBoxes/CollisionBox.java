@@ -168,12 +168,9 @@ public class CollisionBox {
 	 * @return Returns the index of the object colliding with this one after it
 	 *         moves
 	 */
-	public int indexOfCollidingObject(ArrayList<CollisionBox> others, int xMove, int yMove) {
+	public ArrayList<Integer> indexOfCollidingObject(ArrayList<CollisionBox> others, int xMove, int yMove) {
 		CollisionBox nextPos = new CollisionBox(this, xMove, yMove);
-		if (willThisCollide(others, xMove, yMove)) {
-			return nextPos.indexOfCollidingObject(others);
-		}
-		return -1;
+		return nextPos.indexOfCollidingObject(others);
 	}
 
 	/**
@@ -184,15 +181,16 @@ public class CollisionBox {
 	 * @return The index of the CollisionBox that is colliding with this
 	 *         CollisionBox
 	 */
-	public int indexOfCollidingObject(ArrayList<CollisionBox> others) {
+	public ArrayList<Integer> indexOfCollidingObject(ArrayList<CollisionBox> others) {
+		ArrayList <Integer> collisionIndices = new ArrayList<Integer>();
 		if (isColliding(others)) {
 			for (int i = 0; i < others.size(); i++) {
 				if (isColliding(others.get(i))) {
-					return i;
+					collisionIndices.add(i);
 				}
 			}
 		}
-		return -1;
+		return collisionIndices;
 	}
 
 	private boolean isPointInside(int x, int y) {
