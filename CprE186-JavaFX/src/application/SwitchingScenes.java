@@ -29,6 +29,7 @@ public class SwitchingScenes extends Application {
 	@Override
 	public void start(Stage primarystage) throws Exception {
 		window = primarystage;
+		int[] position = { 24, 24 };
 
 		// Images
 		Image space = new Image("file:testing/Courtyard.png");
@@ -42,6 +43,8 @@ public class SwitchingScenes extends Application {
 		BC.setOnAction(e -> {
 			
 		window.setScene(scene2);
+		position[0] = 24;
+		position[1] = 24;
 		
 		});
 		// Layout for animation:
@@ -80,7 +83,7 @@ public class SwitchingScenes extends Application {
 		boolean[] KeyLast = { false, false, false, false };
 		String[] Keys = { "W", "A", "S", "D", "E" };
 
-		int[] position = { 24, 24 };
+		
 		Gamer = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = (currentNanoTime - startNanoTime) / 1000000000.0;
