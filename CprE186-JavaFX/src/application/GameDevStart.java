@@ -51,6 +51,7 @@ public class GameDevStart extends Application {
 		Image space = new Image( "file:testing/Courtyard.png" );
 		Image TitleScreen = new Image("file:testing/TitleScreen.png");
 		Image hero = new Image("file:testing/hero.png", 50, 64, true, false);
+		Image Enemy = new Image("file:testing/enemya.png");
 		final long startNanoTime = System.nanoTime();
 
 
@@ -148,8 +149,9 @@ public class GameDevStart extends Application {
 				else{
 					KeyLast[3] = false;
 				}
-
+				
 				gc.drawImage( hero, position[0], position[1]);
+				
 				//clear the canvas
 				//Background image clears canvas
 
