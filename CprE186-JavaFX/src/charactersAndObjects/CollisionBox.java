@@ -1,4 +1,4 @@
-package collisionBoxes;
+package charactersAndObjects;
 
 import java.awt.Point;
 import java.awt.Rectangle;
