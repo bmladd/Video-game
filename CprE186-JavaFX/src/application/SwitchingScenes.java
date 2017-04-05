@@ -41,7 +41,7 @@ public class SwitchingScenes extends Application {
 		
 		
 		//Maps
-		Image hero = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
+		Image hero = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
 		Image heroflip = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
 		Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
 		Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
