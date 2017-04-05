@@ -31,10 +31,26 @@ public class SwitchingScenes extends Application {
 		window = primarystage;
 		int[] position = { 24, 24 };
 
-		// Images
-		Image space = new Image("file:testing/Courtyard.png");
-		Image space2 = new Image("file:testing/Mountain.png");
-		Image TitleScreen = new Image("file:testing/TitleScreen.png");
+		// Maps
+		Image Courtyard = new Image("file:JavaFXGameMaps/Courtyard.png");
+		Image Mountain = new Image("file:JavaFXGameMaps/Mountain.png");
+		Image ForestLake = new Image("file:JavaFXGameMaps/ForestLake.png");
+		Image Temple = new Image("file:JavaFXGameMaps/Temple.png");
+		Image Options = new Image("file:JavaFXGameMaps/GameOver");
+		Image TitleScreen = new Image("file:JavaFXGameMaps/TitleScreen.png");
+		
+		
+		//Maps
+		Image hero = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
+		Image heroflip = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
+		Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
+		Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
+		Image enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
+		Image demon = new Image("file:JavaFXGameCharacters/enemyd.png", 76, 100, true, false);
+		Image samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
+		Image werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
+		
+		Image swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, true, false);
 
 		// Button1Copy
 		Button BC = new Button("Quit");
@@ -56,9 +72,7 @@ public class SwitchingScenes extends Application {
 		root.getChildren().add(BC);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		// Animation Timer:
-		Image hero = new Image("file:testing/hero.png", 50, 64, true, false);
-		Image Enemy = new Image("file:testing/enemya.png");
+		// Animation Timer:		
 		final long startNanoTime = System.nanoTime();
 
 		ArrayList<String> input = new ArrayList<String>();
@@ -89,7 +103,7 @@ public class SwitchingScenes extends Application {
 				double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
 				gc.clearRect(0, 0, 1024, 768);
-				gc.drawImage(space, 0, 0);
+				gc.drawImage(Courtyard, 0, 0);
 
 				// going up
 				if (input.contains(Keys[0])) {
@@ -189,7 +203,7 @@ public class SwitchingScenes extends Application {
 		root3.getChildren().add(B3);
 		root3.getChildren().add(B);
 		GraphicsContext gc3 = canvas3.getGraphicsContext2D();
-		gc3.drawImage(space2, 0, 0);
+		gc3.drawImage(Mountain, 0, 0);
 		scene3 = new Scene(root3);
 
 		// Layout2
