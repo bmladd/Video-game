@@ -16,6 +16,11 @@ public class GameObject {
 		texture = givenTexture;
 	}
 
+	public GameObject(int xPosition, int yPosition, Image givenTexture){
+		collision = new CollisionBox(xPosition, yPosition, (int) givenTexture.getWidth(), (int) givenTexture.getHeight());
+		texture = givenTexture;
+	}
+
 	public void setTexture(Image givenTexture){
 		texture = givenTexture;
 	}

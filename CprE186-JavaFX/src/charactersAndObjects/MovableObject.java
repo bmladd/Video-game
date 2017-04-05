@@ -14,6 +14,10 @@ public class MovableObject extends GameObject{
 		super(xPosition, yPosition, givenWidth, givenHeight, givenTexture);
 	}
 
+	public MovableObject(int xPosition, int yPosition, Image givenTexture){
+		super(xPosition, yPosition, givenTexture);
+	}
+
 	public void moveToPosition(ArrayList<CollisionBox> boxes, int xMove, int yMove){
 		super.getCollisionBox().translateBoxNoCollisions(boxes, xMove, yMove);
 	}
