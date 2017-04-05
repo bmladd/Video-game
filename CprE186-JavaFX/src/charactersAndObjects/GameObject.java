@@ -27,4 +27,8 @@ public class GameObject {
 	public CollisionBox getCollisionBox(){
 		return collision;
 	}
+
+	public void setPosition(int xPos, int yPos){
+		collision.moveBoxTo(xPos, yPos);
+	}
 }
