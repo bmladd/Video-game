@@ -82,6 +82,6 @@ public class MovableObject extends GameObject {
 	 *            The translation in the y direction
 	 */
 	public void moveToPosition(ArrayList<CollisionBox> boxes, int xMove, int yMove) {
-		super.getCollisionBox().translateBoxNoCollisions(boxes, xMove, yMove);
+		super.getCollisionBox().translateBoxWithCollision(boxes, xMove, yMove);
 	}
 }
