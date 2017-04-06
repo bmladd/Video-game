@@ -62,7 +62,7 @@ public class GameObject {
 	 * @param yPosition
 	 *            Y position of the CollisionBox
 	 * @param givenTexture
-	 *            Texture of this CollisionBox
+	 *            Texture of this GameObject
 	 */
 	public GameObject(int xPosition, int yPosition, Image givenTexture) {
 		collision = new CollisionBox(xPosition, yPosition, (int) givenTexture.getWidth(),
