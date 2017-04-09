@@ -8,13 +8,14 @@ public class BackgroundObject {
 	private Image background;
 	private ArrayList<GameObject> backObjects;
 	private ArrayList<MovableObject> backMovingObjects;
-	private ArrayList<GameObject> doors;
+	private ArrayList<CollisionBox> cBoxes;
+	private ArrayList<CollisionBox> doors;
 
 	public BackgroundObject(Image givenBackground){
 		background = givenBackground;
 	}
 
-	public ArrayList<CollisionBox> getBoxLocations(){
+	public ArrayList<CollisionBox> getAllBoxLocations(){
 		ArrayList<CollisionBox> boxes = new ArrayList<CollisionBox>();
 		for(int i = 0; i < backObjects.size(); i++){
 			boxes.add(backObjects.get(i).getCollisionBox());
@@ -22,7 +23,16 @@ public class BackgroundObject {
 		for(int j = 0; j < backMovingObjects.size(); j++){
 			boxes.add(backMovingObjects.get(j).getCollisionBox());
 		}
+		boxes.addAll(cBoxes);
 		return boxes;
+	}
+
+	public void addCollisionBoxes(CollisionBox givenBox){
+		cBoxes.add(givenBox);
+	}
+
+	public void addCollisionBoxes(ArrayList<CollisionBox> givenBox){
+		cBoxes.addAll(givenBox);
 	}
 
 	public Image getBackgroundImage(){
@@ -65,19 +75,19 @@ public class BackgroundObject {
 		backMovingObjects = movableObjects;
 	}
 
-	public ArrayList<GameObject> getDoors(){
+	public ArrayList<CollisionBox> getDoors(){
 		return doors;
 	}
 
-	public void setDoors(ArrayList<GameObject> doorList){
+	public void setDoors(ArrayList<CollisionBox> doorList){
 		doors = doorList;
 	}
 
-	public void addDoors(ArrayList<GameObject> doorList){
+	public void addDoors(ArrayList<CollisionBox> doorList){
 		doors.addAll(doorList);
 	}
 
-	public void addDoors(GameObject doorToAdd){
+	public void addDoors(CollisionBox doorToAdd){
 		doors.add(doorToAdd);
 	}
 }
