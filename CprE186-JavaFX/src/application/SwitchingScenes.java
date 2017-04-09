@@ -54,7 +54,7 @@ public class SwitchingScenes extends Application {
 		Image hero = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
 		MovableObject playerCharacter = new MovableObject(24, 24, hero);
 
-		Image heroflip = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
+		Image heroflip = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
 		Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
 		Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
 		Image enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
@@ -131,7 +131,7 @@ public class SwitchingScenes extends Application {
 				// going left
 				if (input.contains(Keys[1])) {
 					if ((KeyLast[1] && (playerCharacter.getTopLeftX() != 24))) {
-
+						playerCharacter.setTexture(hero);
 						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), -Movement, 0);
 
 					} else {
@@ -157,6 +157,7 @@ public class SwitchingScenes extends Application {
 				// going right
 				if (input.contains(Keys[3])) {
 					if (KeyLast[3] && (playerCharacter.getTopLeftX() != 949)) {
+						playerCharacter.setTexture(heroflip);
 						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), Movement, 0);
 
 					} else {

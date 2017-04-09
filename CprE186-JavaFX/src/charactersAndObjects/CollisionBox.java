@@ -183,17 +183,29 @@ public class CollisionBox {
 	 *            direction.
 	 */
 	public void translateBoxWithCollision(ArrayList<CollisionBox> boxes, int xMove, int yMove) {
-		int distX = 0;
-		int distY = 0;
 		if (canMoveX(boxes, xMove)) {
-			distX = xMove;
+			translateBoxIgnoreCollision(xMove, 0);;
 		}
-		translateBoxIgnoreCollision(distX, 0);
+		else{
+			if(xMove > 0){
+				translateBoxIgnoreCollision(-1, 0);
+			}
+			else{
+				translateBoxIgnoreCollision(1, 0);
+			}
+		}
 
 		if (canMoveY(boxes, yMove)) {
-			distY = yMove;
+			translateBoxIgnoreCollision(0, yMove);;
 		}
-		translateBoxIgnoreCollision(0, distY);
+		else{
+			if(yMove > 0){
+				translateBoxIgnoreCollision(0, -1);
+			}
+			else{
+				translateBoxIgnoreCollision(0, 1);
+			}
+		}
 	}
 
 	/**
@@ -289,39 +301,30 @@ public class CollisionBox {
 	 *         false otherwise
 	 */
 	public boolean canMove(ArrayList<CollisionBox> boxes, int xTranslate, int yTranslate) {
-		if (xTranslate == 0) {
-			for (int i = 0; i < yTranslate; i++) {
-				CollisionBox nextPosition = new CollisionBox(this);
-				nextPosition.translateBoxIgnoreCollision(xTranslate, i);
-				if (nextPosition.isColliding(boxes)) {
-					return false;
-				}
-			}
-			return true;
-		} else if (yTranslate == 0) {
-			for (int i = 0; i < xTranslate; i++) {
-				CollisionBox nextPosition = new CollisionBox(this);
-				nextPosition.translateBoxIgnoreCollision(i, yTranslate);
-				if (nextPosition.isColliding(boxes)) {
-					return false;
-				}
-			}
-		} else {
-			for (int i = 0; i < xTranslate; i++) {
-				CollisionBox nextPosition = new CollisionBox(this);
+
+		for (int i = 0; i < xTranslate; i++) {
+			CollisionBox nextPosition = new CollisionBox(this);
+			if (xTranslate > 0) {
 				nextPosition.translateBoxIgnoreCollision(i, 0);
-				if (nextPosition.isColliding(boxes)) {
-					return false;
-				}
+			} else {
+				nextPosition.translateBoxIgnoreCollision(-i, 0);
 			}
-			for (int j = 0; j < yTranslate; j++) {
-				CollisionBox nextPosition = new CollisionBox(this);
-				nextPosition.translateBoxIgnoreCollision(xTranslate, j);
-				if (nextPosition.isColliding(boxes)) {
-					return false;
-				}
+			if (nextPosition.isColliding(boxes)) {
+				return false;
 			}
 		}
+		for (int j = 0; j < yTranslate; j++) {
+			CollisionBox nextPosition = new CollisionBox(this);
+			if (yTranslate > 0) {
+				nextPosition.translateBoxIgnoreCollision(0, j);
+			} else {
+				nextPosition.translateBoxIgnoreCollision(0, -j);
+			}
+			if (nextPosition.isColliding(boxes)) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 }
