@@ -8,6 +8,7 @@ public class BackgroundObject {
 	private Image background;
 	private ArrayList<GameObject> backObjects;
 	private ArrayList<MovableObject> backMovingObjects;
+	private ArrayList<GameObject> doors;
 
 	public BackgroundObject(Image givenBackground){
 		background = givenBackground;
@@ -62,5 +63,21 @@ public class BackgroundObject {
 
 	public void setMovableObjects(ArrayList<MovableObject> movableObjects){
 		backMovingObjects = movableObjects;
+	}
+
+	public ArrayList<GameObject> getDoors(){
+		return doors;
+	}
+
+	public void setDoors(ArrayList<GameObject> doorList){
+		doors = doorList;
+	}
+
+	public void addDoors(ArrayList<GameObject> doorList){
+		doors.addAll(doorList);
+	}
+
+	public void addDoors(GameObject doorToAdd){
+		doors.add(doorToAdd);
 	}
 }
