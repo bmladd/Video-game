@@ -1,19 +1,21 @@
 package application;
 
+import java.util.ArrayList;
+
+import charactersAndObjects.BackgroundObject;
+import charactersAndObjects.MovableObject;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-
-import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import levelConstants.Constants;
 
 public class SwitchingScenes extends Application {
 
@@ -29,19 +31,29 @@ public class SwitchingScenes extends Application {
 	@Override
 	public void start(Stage primarystage) throws Exception {
 		window = primarystage;
-		int[] position = { 24, 24 };
 
 		// Maps
-		Image Courtyard = new Image("file:JavaFXGameMaps/Courtyard.png");
-		Image Mountain = new Image("file:JavaFXGameMaps/Mountain.png");
-		Image ForestLake = new Image("file:JavaFXGameMaps/ForestLake.png");
-		Image Temple = new Image("file:JavaFXGameMaps/Temple.png");
-		Image Options = new Image("file:JavaFXGameMaps/GameOver");
-		Image TitleScreen = new Image("file:JavaFXGameMaps/TitleScreen.png");
-		
-		
+		BackgroundObject Courtyard = new BackgroundObject(Constants.Courtyard);
+		Courtyard.addCollisionBoxes(Constants.getCourtyardCollisions());
+		Courtyard.addDoors(Constants.getCourtyardDoors());
+
+		BackgroundObject Mountain = new BackgroundObject(Constants.Mountain);
+
+		BackgroundObject ForestLake = new BackgroundObject(Constants.ForestLake);
+		ForestLake.addCollisionBoxes(Constants.getForestLakeCollisions());
+		ForestLake.addDoors(Constants.getForestLakeDoors());
+
+		BackgroundObject Temple = new BackgroundObject(Constants.Temple);
+
+		BackgroundObject Options = new BackgroundObject(Constants.Options);
+
+		BackgroundObject TitleScreen = new BackgroundObject(Constants.TitleScreen);
+
+
 		//Maps
 		Image hero = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
+		MovableObject playerCharacter = new MovableObject(24, 24, hero);
+
 		Image heroflip = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
 		Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
 		Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
@@ -49,7 +61,7 @@ public class SwitchingScenes extends Application {
 		Image demon = new Image("file:JavaFXGameCharacters/enemyd.png", 76, 100, true, false);
 		Image samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
 		Image werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
-		
+
 		Image swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, true, false);
 
 		// Button1Copy
@@ -57,11 +69,10 @@ public class SwitchingScenes extends Application {
 		BC.setLayoutX(0);
 		BC.setLayoutY(0);
 		BC.setOnAction(e -> {
-			
+
 		window.setScene(scene2);
-		position[0] = 24;
-		position[1] = 24;
-		
+		playerCharacter.setPosition(24, 24);
+
 		});
 		// Layout for animation:
 		Group root = new Group();
@@ -72,7 +83,8 @@ public class SwitchingScenes extends Application {
 		root.getChildren().add(BC);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		// Animation Timer:		
+
+		// Animation Timer:
 		final long startNanoTime = System.nanoTime();
 
 		ArrayList<String> input = new ArrayList<String>();
@@ -97,21 +109,20 @@ public class SwitchingScenes extends Application {
 		boolean[] KeyLast = { false, false, false, false };
 		String[] Keys = { "W", "A", "S", "D", "E" };
 
-		
+
 		Gamer = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
 				gc.clearRect(0, 0, 1024, 768);
-				gc.drawImage(Courtyard, 0, 0);
+				gc.drawImage(Courtyard.getBackgroundImage(), 0, 0);
 
 				// going up
 				if (input.contains(Keys[0])) {
-					if (KeyLast[0] && (position[1] != 24)) {
-						position[1] = position[1] - Movement;
+					if (KeyLast[0] && (playerCharacter.getTopLeftY() != 24)) {
+						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, -Movement);
 					} else {
 						KeyLast[0] = true;
-
 					}
 
 				} else {
@@ -119,9 +130,9 @@ public class SwitchingScenes extends Application {
 				}
 				// going left
 				if (input.contains(Keys[1])) {
-					if ((KeyLast[1] && (position[0] != 24))) {
+					if ((KeyLast[1] && (playerCharacter.getTopLeftX() != 24))) {
 
-						position[0] = position[0] - Movement;
+						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), -Movement, 0);
 
 					} else {
 						KeyLast[1] = true;
@@ -133,8 +144,8 @@ public class SwitchingScenes extends Application {
 				}
 				// going down
 				if (input.contains(Keys[2])) {
-					if (KeyLast[2] && (position[1] != 680)) {
-						position[1] = position[1] + Movement;
+					if (KeyLast[2] && (playerCharacter.getTopLeftY() != 680)) {
+						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, Movement);
 					} else {
 						KeyLast[2] = true;
 
@@ -145,9 +156,8 @@ public class SwitchingScenes extends Application {
 				}
 				// going right
 				if (input.contains(Keys[3])) {
-					if (KeyLast[3] && (position[0] != 949)) {
-
-						position[0] = position[0] + Movement;
+					if (KeyLast[3] && (playerCharacter.getTopLeftX() != 949)) {
+						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), Movement, 0);
 
 					} else {
 						KeyLast[3] = true;
@@ -158,7 +168,7 @@ public class SwitchingScenes extends Application {
 					KeyLast[3] = false;
 				}
 
-				gc.drawImage(hero, position[0], position[1]);
+				gc.drawImage(playerCharacter.getTexture(), playerCharacter.getTopLeftX(), playerCharacter.getTopLeftY());
 
 				// clear the canvas
 				// Background image clears canvas
@@ -172,7 +182,7 @@ public class SwitchingScenes extends Application {
 		B.setLayoutX(0);
 		B.setLayoutY(0);
 		B.setOnAction(e -> window.setScene(scene2));
-		
+
 
 		// Button3
 		Button B3 = new Button("Options");
@@ -203,7 +213,7 @@ public class SwitchingScenes extends Application {
 		root3.getChildren().add(B3);
 		root3.getChildren().add(B);
 		GraphicsContext gc3 = canvas3.getGraphicsContext2D();
-		gc3.drawImage(Mountain, 0, 0);
+		gc3.drawImage(Mountain.getBackgroundImage(), 0, 0);
 		scene3 = new Scene(root3);
 
 		// Layout2
@@ -213,7 +223,7 @@ public class SwitchingScenes extends Application {
 		root2.getChildren().add(B2);
 		root2.getChildren().add(B3);
 		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-		gc2.drawImage(TitleScreen, 0, 0);
+		gc2.drawImage(TitleScreen.getBackgroundImage(), 0, 0);
 		scene2 = new Scene(root2);
 
 		// end stuff
