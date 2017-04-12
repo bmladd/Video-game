@@ -66,11 +66,11 @@ public class CollisionBox {
 	 *            The CollisionBox to set this CollisionBox to
 	 */
 	public CollisionBox(CollisionBox givenBox) {
-		cBox = givenBox.getRectangle();
-		topLeft = givenBox.getTopLeft();
-		topRight = givenBox.getTopRight();
-		bottomLeft = givenBox.getBottomLeft();
-		bottomRight = givenBox.getBottomRight();
+		cBox = new Rectangle(givenBox.getRectangle());
+		topLeft = new Point(givenBox.getTopLeft());
+		topRight = new Point(givenBox.getTopRight());
+		bottomLeft = new Point(givenBox.getBottomLeft());
+		bottomRight = new Point(givenBox.getBottomRight());
 	}
 
 	/**
@@ -186,25 +186,9 @@ public class CollisionBox {
 		if (canMoveX(boxes, xMove)) {
 			translateBoxIgnoreCollision(xMove, 0);;
 		}
-		else{
-			if(xMove > 0){
-				translateBoxIgnoreCollision(-1, 0);
-			}
-			else{
-				translateBoxIgnoreCollision(1, 0);
-			}
-		}
 
 		if (canMoveY(boxes, yMove)) {
 			translateBoxIgnoreCollision(0, yMove);;
-		}
-		else{
-			if(yMove > 0){
-				translateBoxIgnoreCollision(0, -1);
-			}
-			else{
-				translateBoxIgnoreCollision(0, 1);
-			}
 		}
 	}
 
@@ -301,24 +285,23 @@ public class CollisionBox {
 	 *         false otherwise
 	 */
 	public boolean canMove(ArrayList<CollisionBox> boxes, int xTranslate, int yTranslate) {
+		CollisionBox nextPosition = new CollisionBox(this);
+		for (int i = 0; i < Math.abs(xTranslate); i++) {
 
-		for (int i = 0; i < xTranslate; i++) {
-			CollisionBox nextPosition = new CollisionBox(this);
 			if (xTranslate > 0) {
-				nextPosition.translateBoxIgnoreCollision(i, 0);
+				nextPosition.translateBoxIgnoreCollision(1, 0);
 			} else {
-				nextPosition.translateBoxIgnoreCollision(-i, 0);
+				nextPosition.translateBoxIgnoreCollision(-1, 0);
 			}
 			if (nextPosition.isColliding(boxes)) {
 				return false;
 			}
 		}
-		for (int j = 0; j < yTranslate; j++) {
-			CollisionBox nextPosition = new CollisionBox(this);
+		for (int j = 0; j < Math.abs(yTranslate); j++) {
 			if (yTranslate > 0) {
-				nextPosition.translateBoxIgnoreCollision(0, j);
+				nextPosition.translateBoxIgnoreCollision(0, 1);
 			} else {
-				nextPosition.translateBoxIgnoreCollision(0, -j);
+				nextPosition.translateBoxIgnoreCollision(0, -1);
 			}
 			if (nextPosition.isColliding(boxes)) {
 				return false;

@@ -6,6 +6,8 @@ import charactersAndObjects.CollisionBox;
 import javafx.scene.image.Image;
 
 public class Constants {
+	public static final int HERO_OFFSET = 10;
+
 	public static Image Courtyard = new Image("file:JavaFXGameMaps/Courtyard.png");
 	public static ArrayList<CollisionBox> getCourtyardCollisions() {
 		CollisionBox CBox1 = new CollisionBox(176, 140, 120, 95);
