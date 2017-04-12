@@ -21,6 +21,10 @@ public class BackgroundObject {
 		doorsExt = new ArrayList<CollisionBox>();
 	}
 
+	public void setTexture(Image givenBackground){
+		background = givenBackground;
+	}
+
 	public ArrayList<CollisionBox> getAllBoxLocations() {
 		ArrayList<CollisionBox> boxes = new ArrayList<CollisionBox>();
 		for (int i = 0; i < backObjects.size(); i++) {

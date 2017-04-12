@@ -9,6 +9,7 @@ public class Constants {
 	public static final int HERO_OFFSET = 10;
 
 	public static Image Courtyard = new Image("file:JavaFXGameMaps/Courtyard.png");
+
 	public static ArrayList<CollisionBox> getCourtyardCollisions() {
 		CollisionBox CBox1 = new CollisionBox(176, 140, 120, 95);
 		CollisionBox CBox2 = new CollisionBox(262, 441, 120, 95);
@@ -21,6 +22,7 @@ public class Constants {
 		boxes.add(CBox4);
 		return boxes;
 	}
+
 	public static ArrayList<CollisionBox> getCourtyardDoors() {
 		CollisionBox CDoor1 = new CollisionBox(0, 260, 2, 128);
 		CollisionBox CDoor2 = new CollisionBox(1000 + (24 - 2), 49, 2, 128);
@@ -29,6 +31,7 @@ public class Constants {
 		doors.add(CDoor2);
 		return doors;
 	}
+
 	public static ArrayList<CollisionBox> getCourtyardDoorsExtended() {
 		CollisionBox CDoor1 = new CollisionBox(0, 260 + 64, 24, 128 - 64);
 		CollisionBox CDoor2 = new CollisionBox(1000, 49 + 64, 24, 128 - 64);
@@ -37,7 +40,8 @@ public class Constants {
 		doors.add(CDoor2);
 		return doors;
 	}
-	public static ArrayList<CollisionBox> getLevelWalls(){
+
+	public static ArrayList<CollisionBox> getLevelWalls() {
 		CollisionBox lWallTop = new CollisionBox(0, 0, 1024, 24);
 		CollisionBox lWallLeft = new CollisionBox(0, 0, 24, 1024);
 		CollisionBox lWallRight = new CollisionBox(999, 0, 24, 1024);
@@ -51,21 +55,20 @@ public class Constants {
 		return walls;
 	}
 
-
 	public static Image Mountain = new Image("file:JavaFXGameMaps/Mountain.png");
 
+
 	public static Image ForestLake = new Image("file:JavaFXGameMaps/ForestLake.png");
+
 	public static ArrayList<CollisionBox> getForestLakeCollisions() {
 		CollisionBox FBox1 = new CollisionBox(172, 168, 420, 36);
-		CollisionBox FBox2 = new CollisionBox(350, 250, 300, 238);
 		ArrayList<CollisionBox> boxes = new ArrayList<CollisionBox>();
 		boxes.add(FBox1);
-		boxes.add(FBox2);
 		return boxes;
 	}
 	public static ArrayList<CollisionBox> getForestLakeDoors() {
-		CollisionBox FDoor1 = new CollisionBox(0, 380, 24, 128);
-		CollisionBox FDoor2 = new CollisionBox(1000, 190, 24, 128);
+		CollisionBox FDoor1 = new CollisionBox(0, 380, 24 + 1, 128);
+		CollisionBox FDoor2 = new CollisionBox(1000, 190, 24 + 1, 128);
 		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
 		doors.add(FDoor1);
 		doors.add(FDoor2);
@@ -73,15 +76,21 @@ public class Constants {
 	}
 
 	public static Image Temple = new Image("file:JavaFXGameMaps/Temple.png");
-	public static CollisionBox[] TempleDoors = { new CollisionBox(0, 72, 24, 128),
-			new CollisionBox(1000, 569, 24, 128) };
+	public static ArrayList<CollisionBox> getTempleCollisions() {
+		CollisionBox TBox = new CollisionBox(350, 250, 300, 238);
+		ArrayList<CollisionBox> boxes = new ArrayList<CollisionBox>();
+		return boxes;
+	}
+	public static ArrayList<CollisionBox> getTempleDoors() {
+		CollisionBox TDoor1 = new CollisionBox(0, 72, 24 + 1, 128);
+		CollisionBox TDoor2 = new CollisionBox(1000, 569, 24 + 1, 128);
+		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
+		doors.add(TDoor1);
+		doors.add(TDoor2);
+		return doors;
+	}
 
 	public static Image Options = new Image("file:JavaFXGameMaps/GameOver");
 	public static Image TitleScreen = new Image("file:JavaFXGameMaps/TitleScreen.png");
-
-
-
-
-
 
 }
