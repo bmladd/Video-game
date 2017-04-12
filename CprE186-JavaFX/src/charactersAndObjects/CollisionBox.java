@@ -267,6 +267,10 @@ public class CollisionBox {
 		return canMove(boxes, xTranslate, 0);
 	}
 
+	public boolean canMoveX(CollisionBox box, int xTranslate) {
+		return canMove(box, xTranslate, 0);
+	}
+
 	/**
 	 * Checks to see if this CollisionBox can move the given distance in the y
 	 * direction without colliding with any CollisionBox in the given ArrayList
@@ -282,6 +286,10 @@ public class CollisionBox {
 	 */
 	public boolean canMoveY(ArrayList<CollisionBox> boxes, int yTranslate) {
 		return canMove(boxes, 0, yTranslate);
+	}
+
+	public boolean canMoveY(CollisionBox box, int yTranslate) {
+		return canMove(box, 0, yTranslate);
 	}
 
 	/**
@@ -320,6 +328,34 @@ public class CollisionBox {
 				nextPosition.translateBoxIgnoreCollision(0, -1);
 			}
 			if (nextPosition.isColliding(boxes)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
+	public boolean canMove(CollisionBox box, int xTranslate, int yTranslate) {
+		CollisionBox nextPosition = new CollisionBox(this);
+		for (int i = 0; i < Math.abs(xTranslate); i++) {
+
+			if (xTranslate > 0) {
+				nextPosition.translateBoxIgnoreCollision(1, 0);
+			} else {
+				nextPosition.translateBoxIgnoreCollision(-1, 0);
+			}
+			if (nextPosition.isColliding(box)) {
+				return false;
+			}
+		}
+		for (int j = 0; j < Math.abs(yTranslate); j++) {
+			if (yTranslate > 0) {
+				nextPosition.translateBoxIgnoreCollision(0, 1);
+			} else {
+				nextPosition.translateBoxIgnoreCollision(0, -1);
+			}
+			if (nextPosition.isColliding(box)) {
 				return false;
 			}
 		}
