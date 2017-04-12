@@ -186,9 +186,25 @@ public class CollisionBox {
 		if (canMoveX(boxes, xMove)) {
 			translateBoxIgnoreCollision(xMove, 0);;
 		}
+		else{
+			if(xMove > 0){
+				translateBoxWithCollision(boxes, xMove - 1, 0);
+			}
+			else if(xMove < 0){
+				translateBoxWithCollision(boxes, xMove + 1, 0);
+			}
+		}
 
 		if (canMoveY(boxes, yMove)) {
 			translateBoxIgnoreCollision(0, yMove);;
+		}
+		else{
+			if(yMove > 0){
+				translateBoxWithCollision(boxes, 0, yMove - 1);
+			}
+			else if(yMove < 0){
+				translateBoxWithCollision(boxes, 0, yMove + 1);
+			}
 		}
 	}
 

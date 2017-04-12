@@ -10,6 +10,7 @@ public class BackgroundObject {
 	private ArrayList<MovableObject> backMovingObjects;
 	private ArrayList<CollisionBox> cBoxes;
 	private ArrayList<CollisionBox> doors;
+	private ArrayList<CollisionBox> doorsExt;
 
 	public BackgroundObject(Image givenBackground) {
 		background = givenBackground;
@@ -17,6 +18,7 @@ public class BackgroundObject {
 		backMovingObjects = new ArrayList<MovableObject>();
 		cBoxes = new ArrayList<CollisionBox>();
 		doors = new ArrayList<CollisionBox>();
+		doorsExt = new ArrayList<CollisionBox>();
 	}
 
 	public ArrayList<CollisionBox> getAllBoxLocations() {
@@ -93,5 +95,21 @@ public class BackgroundObject {
 
 	public void addDoors(CollisionBox doorToAdd) {
 		doors.add(doorToAdd);
+	}
+
+	public ArrayList<CollisionBox> getDoorsExtended() {
+		return doorsExt;
+	}
+
+	public void setDoorsExtended(ArrayList<CollisionBox> doorsExt) {
+		this.doorsExt = doorsExt;
+	}
+
+	public void addDoorsExtended(ArrayList<CollisionBox> doorList) {
+		doorsExt.addAll(doorList);
+	}
+
+	public void addDoorsExtended(CollisionBox doorToAdd) {
+		doorsExt.add(doorToAdd);
 	}
 }

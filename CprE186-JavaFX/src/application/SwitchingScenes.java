@@ -20,7 +20,7 @@ import levelConstants.Constants;
 public class SwitchingScenes extends Application {
 
 	AnimationTimer Gamer;
-	private static int Movement = 1;
+	private static int Movement = 10;
 	public Stage window;
 	public Scene scene1, scene2, scene3;
 
@@ -36,6 +36,7 @@ public class SwitchingScenes extends Application {
 		BackgroundObject Courtyard = new BackgroundObject(Constants.Courtyard);
 		Courtyard.addCollisionBoxes(Constants.getCourtyardCollisions());
 		Courtyard.addDoors(Constants.getCourtyardDoors());
+		Courtyard.addDoorsExtended(Constants.getCourtyardDoorsExtended());
 
 		BackgroundObject Mountain = new BackgroundObject(Constants.Mountain);
 
@@ -49,8 +50,7 @@ public class SwitchingScenes extends Application {
 
 		BackgroundObject TitleScreen = new BackgroundObject(Constants.TitleScreen);
 
-
-		//Maps
+		// Maps
 		Image hero = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
 		MovableObject playerCharacter = new MovableObject(24, 24, hero);
 
@@ -70,8 +70,8 @@ public class SwitchingScenes extends Application {
 		BC.setLayoutY(0);
 		BC.setOnAction(e -> {
 
-		window.setScene(scene2);
-		playerCharacter.setPosition(24, 24);
+			window.setScene(scene2);
+			playerCharacter.setPosition(24, 24);
 
 		});
 		// Layout for animation:
@@ -82,7 +82,6 @@ public class SwitchingScenes extends Application {
 		root.getChildren().add(canvas);
 		root.getChildren().add(BC);
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-
 
 		// Animation Timer:
 		final long startNanoTime = System.nanoTime();
@@ -109,7 +108,6 @@ public class SwitchingScenes extends Application {
 		boolean[] KeyLast = { false, false, false, false };
 		String[] Keys = { "W", "A", "S", "D", "E" };
 
-
 		Gamer = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = (currentNanoTime - startNanoTime) / 1000000000.0;
@@ -119,8 +117,15 @@ public class SwitchingScenes extends Application {
 
 				// going up
 				if (input.contains(Keys[0])) {
-					if (KeyLast[0] && (playerCharacter.getTopLeftY() != 24)) {
-						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, -Movement);
+					if (KeyLast[0]) {
+						if (playerCharacter.getCollisionBox().canMoveY(Constants.getLevelWalls(), -Movement)) {
+							playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, -Movement);
+						} else if (!playerCharacter.getCollisionBox().canMoveY(Courtyard.getDoorsExtended(),
+								-Movement)) {
+							if (playerCharacter.getCollisionBox().canMoveY(Courtyard.getDoors(), -Movement)) {
+								playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, -Movement);
+							}
+						}
 					} else {
 						KeyLast[0] = true;
 					}
@@ -130,9 +135,17 @@ public class SwitchingScenes extends Application {
 				}
 				// going left
 				if (input.contains(Keys[1])) {
-					if ((KeyLast[1] && (playerCharacter.getTopLeftX() != 24))) {
-						playerCharacter.setTexture(hero);
-						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), -Movement, 0);
+					if (KeyLast[1]) {
+						if (playerCharacter.getCollisionBox().canMoveX(Constants.getLevelWalls(), -Movement)) {
+							playerCharacter.setTexture(hero);
+							playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), -Movement, 0);
+						} else if (!playerCharacter.getCollisionBox().canMoveX(Courtyard.getDoorsExtended(),
+								-Movement)) {
+							if (playerCharacter.getCollisionBox().canMoveX(Courtyard.getDoors(), -Movement)) {
+								playerCharacter.setTexture(hero);
+								playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), -Movement, 0);
+							}
+						}
 
 					} else {
 						KeyLast[1] = true;
@@ -144,8 +157,15 @@ public class SwitchingScenes extends Application {
 				}
 				// going down
 				if (input.contains(Keys[2])) {
-					if (KeyLast[2] && (playerCharacter.getTopLeftY() != 680)) {
-						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, Movement);
+					if (KeyLast[2]) {
+						if (playerCharacter.getCollisionBox().canMoveY(Constants.getLevelWalls(), Movement)) {
+							playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, Movement);
+						} else if (!playerCharacter.getCollisionBox().canMoveY(Courtyard.getDoorsExtended(),
+								Movement)) {
+							if (playerCharacter.getCollisionBox().canMoveY(Courtyard.getDoors(), Movement)) {
+								playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), 0, Movement);
+							}
+						}
 					} else {
 						KeyLast[2] = true;
 
@@ -156,9 +176,17 @@ public class SwitchingScenes extends Application {
 				}
 				// going right
 				if (input.contains(Keys[3])) {
-					if (KeyLast[3] && (playerCharacter.getTopLeftX() != 949)) {
-						playerCharacter.setTexture(heroflip);
-						playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), Movement, 0);
+					if (KeyLast[3]) {
+						if (playerCharacter.getCollisionBox().canMoveX(Constants.getLevelWalls(), Movement)) {
+							playerCharacter.setTexture(heroflip);
+							playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), Movement, 0);
+						} else if (!playerCharacter.getCollisionBox().canMoveX(Courtyard.getDoorsExtended(),
+								Movement)) {
+							if (playerCharacter.getCollisionBox().canMoveX(Courtyard.getDoors(), Movement)) {
+								playerCharacter.setTexture(heroflip);
+								playerCharacter.moveToPosition(Courtyard.getAllBoxLocations(), Movement, 0);
+							}
+						}
 
 					} else {
 						KeyLast[3] = true;
@@ -169,7 +197,8 @@ public class SwitchingScenes extends Application {
 					KeyLast[3] = false;
 				}
 
-				gc.drawImage(playerCharacter.getTexture(), playerCharacter.getTopLeftX(), playerCharacter.getTopLeftY());
+				gc.drawImage(playerCharacter.getTexture(), playerCharacter.getTopLeftX(),
+						playerCharacter.getTopLeftY());
 
 				// clear the canvas
 				// Background image clears canvas
@@ -183,7 +212,6 @@ public class SwitchingScenes extends Application {
 		B.setLayoutX(0);
 		B.setLayoutY(0);
 		B.setOnAction(e -> window.setScene(scene2));
-
 
 		// Button3
 		Button B3 = new Button("Options");

@@ -22,12 +22,33 @@ public class Constants {
 		return boxes;
 	}
 	public static ArrayList<CollisionBox> getCourtyardDoors() {
-		CollisionBox CDoor1 = new CollisionBox(0, 260, 24, 128);
-		CollisionBox CDoor2 = new CollisionBox(1000, 49, 24, 128);
+		CollisionBox CDoor1 = new CollisionBox(0, 260, 2, 128);
+		CollisionBox CDoor2 = new CollisionBox(1000 + (24 - 2), 49, 2, 128);
 		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
 		doors.add(CDoor1);
 		doors.add(CDoor2);
 		return doors;
+	}
+	public static ArrayList<CollisionBox> getCourtyardDoorsExtended() {
+		CollisionBox CDoor1 = new CollisionBox(0, 260 + 64, 24, 128 - 64);
+		CollisionBox CDoor2 = new CollisionBox(1000, 49 + 64, 24, 128 - 64);
+		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
+		doors.add(CDoor1);
+		doors.add(CDoor2);
+		return doors;
+	}
+	public static ArrayList<CollisionBox> getLevelWalls(){
+		CollisionBox lWallTop = new CollisionBox(0, 0, 1024, 24);
+		CollisionBox lWallLeft = new CollisionBox(0, 0, 24, 1024);
+		CollisionBox lWallRight = new CollisionBox(999, 0, 24, 1024);
+		CollisionBox lWallBottom = new CollisionBox(0, 768, 1024, 24);
+		ArrayList<CollisionBox> walls = new ArrayList<CollisionBox>();
+		walls.add(lWallTop);
+		walls.add(lWallLeft);
+		walls.add(lWallRight);
+		walls.add(lWallBottom);
+
+		return walls;
 	}
 
 
