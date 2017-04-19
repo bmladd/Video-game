@@ -13,30 +13,32 @@ import javafx.scene.image.Image;
 public class AIcharacter extends SwitchingScenes {
 	
 	// images for creating the AI
-	Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
-	Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
-	Image enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
-	Image demon = new Image("file:JavaFXGameCharacters/enemyd.png", 76, 100, true, false);
-	Image samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
-	Image werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
+	private static Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
+	private static Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
+	private static Image enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
+	private static Image demon = new Image("file:JavaFXGameCharacters/enemyd.png", 76, 100, true, false);
+	private static Image samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
+	private static Image werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
 	
 	//AI as movable objects in the environment
 	MovableObject Enemy = new MovableObject(25,25, enemy);
 	
-	MovableObject Dragon = new MovableObject(200,200, dragon);
+	private static MovableObject Dragon = new MovableObject(200,200, dragon);
 	
-	MovableObject Enemy2 = new MovableObject(25,25, enemy2);
+	private static MovableObject Enemy2 = new MovableObject(25,25, enemy2);
 	
-	MovableObject Demon = new MovableObject(25,25,demon);
+	private MovableObject Demon = new MovableObject(25,25,demon);
 	
-	MovableObject Werewolf = new MovableObject(25,25, werewolf);
+	private static MovableObject Werewolf = new MovableObject(25,25, werewolf);
 	
-	MovableObject Samurai = new MovableObject(25,25, samurai);
+	private static MovableObject Samurai = new MovableObject(25,25, samurai);
 	
 	/* positions and movements for each character
 	 *note, not all characters need/will to be used
 	 */
-	
+	public static void drawDragon(){
+		Dragon.setPosition(250,250);
+	}
 	/*
 	 * Collision boxes and health for AI
 	 */
