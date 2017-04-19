@@ -33,11 +33,19 @@ public class AIcharacter extends SwitchingScenes {
 	
 	private static MovableObject Samurai = new MovableObject(25,25, samurai);
 	
+	
+	
 	/* positions and movements for each character
 	 *note, not all characters need/will to be used
 	 */
 	public static void drawDragon(){
-		Dragon.setPosition(250,250);
+		Dragon.setPosition(500,250);
+	}
+	public static double getX(){
+		return Dragon.getTopLeftX();
+	}
+	public static double getY(){
+		return Dragon.getTopLeftY();
 	}
 	/*
 	 * Collision boxes and health for AI

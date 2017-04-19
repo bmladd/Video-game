@@ -3,6 +3,7 @@ package application;
 import java.util.ArrayList;
 
 import charactersAndObjects.BackgroundObject;
+import charactersAndObjects.CollisionBox;
 import charactersAndObjects.MovableObject;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -237,6 +238,10 @@ public class SwitchingScenes extends Application {
 
 				gc.drawImage(playerCharacter.getTexture(), playerCharacter.getTopLeftX(),
 						playerCharacter.getTopLeftY());
+				if(currentBackground.getBackgroundImage().equals(Mountain.getBackgroundImage())){
+					AIcharacter.drawDragon();
+					gc.drawImage(dragon, AIcharacter.getX(), AIcharacter.getY());
+				}
 				if(slash){
 					if(playerCharacter.getTexture().equals(heroflip)){
 						gc.drawImage(swordslash, playerCharacter.getTopLeftX()+30, playerCharacter.getTopLeftY()-15);
@@ -245,6 +250,7 @@ public class SwitchingScenes extends Application {
 						gc.drawImage(swordslash, (double)playerCharacter.getTopLeftX()+10, (double)playerCharacter.getTopLeftY()-15, (double)-30, (double)64);
 					}
 				}
+				
 
 				// clear the canvas
 				// Background image clears canvas

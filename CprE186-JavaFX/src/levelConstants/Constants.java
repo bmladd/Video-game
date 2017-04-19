@@ -107,6 +107,8 @@ public class Constants {
 		doors.add(TDoor2);
 		return doors;
 	}
+	
+	
 
 	public static Image Options = new Image("file:JavaFXGameMaps/GameOver.png");
 	public static Image TitleScreen = new Image("file:JavaFXGameMaps/TitleScreen.png");
