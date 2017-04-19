@@ -63,7 +63,7 @@ public class SwitchingScenes extends Application {
 		Image samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
 		Image werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
 
-		Image swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, true, false);
+		Image swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, false, false);
 
 		// The quit button
 		Button QuitButton = new Button("Quit");
@@ -106,7 +106,7 @@ public class SwitchingScenes extends Application {
 			}
 		});
 
-		boolean[] KeyLast = { false, false, false, false };
+		boolean[] KeyLast = { false, false, false, false, false };
 		String[] Keys = { "W", "A", "S", "D", "E" };
 
 		currentBackground = Courtyard;
@@ -114,7 +114,7 @@ public class SwitchingScenes extends Application {
 		Gamer = new AnimationTimer() {
 			public void handle(long currentNanoTime) {
 				double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-
+				boolean slash = false;
 				gc.clearRect(0, 0, 1024, 768);
 				gc.drawImage(currentBackground.getBackgroundImage(), 0, 0);
 
@@ -209,9 +209,33 @@ public class SwitchingScenes extends Application {
 				} else {
 					KeyLast[3] = false;
 				}
+				// going left
+				if (input.contains(Keys[4])) {
+					if (KeyLast[4]) {
+						if (playerCharacter.getTexture().equals(hero) || playerCharacter.getTexture().equals(heroflip)) {
+							slash = true;
+						}
+
+					} else {
+						KeyLast[4] = true;
+
+					}
+
+				} else {
+					KeyLast[4] = false;
+					slash = false;
+				}
 
 				gc.drawImage(playerCharacter.getTexture(), playerCharacter.getTopLeftX(),
 						playerCharacter.getTopLeftY());
+				if(slash){
+					if(playerCharacter.getTexture().equals(heroflip)){
+						gc.drawImage(swordslash, playerCharacter.getTopLeftX()+30, playerCharacter.getTopLeftY()-15);
+					}
+					if(playerCharacter.getTexture().equals(hero)){
+						gc.drawImage(swordslash, (double)playerCharacter.getTopLeftX()+10, (double)playerCharacter.getTopLeftY()-15, (double)-30, (double)64);
+					}
+				}
 
 				// clear the canvas
 				// Background image clears canvas
