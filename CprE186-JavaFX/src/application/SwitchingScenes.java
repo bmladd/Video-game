@@ -44,8 +44,12 @@ public class SwitchingScenes extends Application {
 		BackgroundObject ForestLake = new BackgroundObject(Constants.ForestLake);
 		ForestLake.addCollisionBoxes(Constants.getForestLakeCollisions());
 		ForestLake.addDoors(Constants.getForestLakeDoors());
+		ForestLake.addDoorsExtended(Constants.getForestLakeDoorsExtended());
 
 		BackgroundObject Temple = new BackgroundObject(Constants.Temple);
+		Temple.addDoorsExtended(Constants.getTempleDoorsExtended());
+		Temple.addDoors(Constants.getTempleDoors());
+		Temple.addCollisionBoxes(Constants.getTempleCollisions());
 
 		BackgroundObject Options = new BackgroundObject(Constants.Options);
 
@@ -198,6 +202,11 @@ public class SwitchingScenes extends Application {
 									currentBackground = ForestLake;
 									playerCharacter.setPosition(25, 25);
 								}
+								else if(currentBackground.getBackgroundImage().equals((ForestLake.getBackgroundImage()))){
+									currentBackground = Mountain;
+									playerCharacter.setPosition(25, 25);
+								}
+								
 							}
 						}
 
@@ -279,7 +288,7 @@ public class SwitchingScenes extends Application {
 		root3.getChildren().add(B3);
 		root3.getChildren().add(B);
 		GraphicsContext gc3 = canvas3.getGraphicsContext2D();
-		gc3.drawImage(Mountain.getBackgroundImage(), 0, 0);
+		gc3.drawImage(Options.getBackgroundImage(), 0, 0);
 		optionsMenu = new Scene(root3);
 
 		// Layout2

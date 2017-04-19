@@ -59,16 +59,26 @@ public class Constants {
 
 
 	public static Image ForestLake = new Image("file:JavaFXGameMaps/ForestLake.png");
-
+	
 	public static ArrayList<CollisionBox> getForestLakeCollisions() {
 		CollisionBox FBox1 = new CollisionBox(172, 168, 420, 36);
+		CollisionBox FBox2 = new CollisionBox(430, 500, 420, 36);
 		ArrayList<CollisionBox> boxes = new ArrayList<CollisionBox>();
 		boxes.add(FBox1);
+		boxes.add(FBox2);
 		return boxes;
 	}
 	public static ArrayList<CollisionBox> getForestLakeDoors() {
-		CollisionBox FDoor1 = new CollisionBox(0, 380, 24 + 1, 128);
-		CollisionBox FDoor2 = new CollisionBox(1000, 190, 24 + 1, 128);
+		CollisionBox FDoor1 = new CollisionBox(0, 380, 2, 128);
+		CollisionBox FDoor2 = new CollisionBox(1000 +(24-2), 190, 2, 128);
+		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
+		doors.add(FDoor1);
+		doors.add(FDoor2);
+		return doors;
+	}
+	public static ArrayList<CollisionBox> getForestLakeDoorsExtended() {
+		CollisionBox FDoor1 = new CollisionBox(0, 380 + 64, 24, 128 - 64);
+		CollisionBox FDoor2 = new CollisionBox(1000, 190 + 64, 24, 128 - 64);
 		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
 		doors.add(FDoor1);
 		doors.add(FDoor2);
@@ -82,15 +92,23 @@ public class Constants {
 		return boxes;
 	}
 	public static ArrayList<CollisionBox> getTempleDoors() {
-		CollisionBox TDoor1 = new CollisionBox(0, 72, 24 + 1, 128);
-		CollisionBox TDoor2 = new CollisionBox(1000, 569, 24 + 1, 128);
+		CollisionBox TDoor1 = new CollisionBox(0, 72, 2, 128);
+		CollisionBox TDoor2 = new CollisionBox(1000 +(24-2), 569, 2, 128);
+		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
+		doors.add(TDoor1);
+		doors.add(TDoor2);
+		return doors;
+	}
+	public static ArrayList<CollisionBox> getTempleDoorsExtended() {
+		CollisionBox TDoor1 = new CollisionBox(0, 72 + 64, 24, 128 - 64);
+		CollisionBox TDoor2 = new CollisionBox(1000, 569 + 64, 24, 128 - 64);
 		ArrayList<CollisionBox> doors = new ArrayList<CollisionBox>();
 		doors.add(TDoor1);
 		doors.add(TDoor2);
 		return doors;
 	}
 
-	public static Image Options = new Image("file:JavaFXGameMaps/GameOver");
+	public static Image Options = new Image("file:JavaFXGameMaps/GameOver.png");
 	public static Image TitleScreen = new Image("file:JavaFXGameMaps/TitleScreen.png");
 
 }
