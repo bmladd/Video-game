@@ -3,6 +3,7 @@ package inanimateObjects;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
+import otherCharacters.NonPlayerCharacter;
 
 public class BackgroundObject {
 	private Image background;
@@ -11,6 +12,7 @@ public class BackgroundObject {
 	private ArrayList<CollisionBox> cBoxes;
 	private ArrayList<CollisionBox> doors;
 	private ArrayList<CollisionBox> doorsExt;
+	private ArrayList<NonPlayerCharacter> npcs;
 
 	public BackgroundObject(Image givenBackground) {
 		background = givenBackground;
@@ -19,6 +21,8 @@ public class BackgroundObject {
 		cBoxes = new ArrayList<CollisionBox>();
 		doors = new ArrayList<CollisionBox>();
 		doorsExt = new ArrayList<CollisionBox>();
+		npcs = new ArrayList<NonPlayerCharacter>();
+
 	}
 
 	public void setTexture(Image givenBackground){
@@ -115,5 +119,37 @@ public class BackgroundObject {
 
 	public void addDoorsExtended(CollisionBox doorToAdd) {
 		doorsExt.add(doorToAdd);
+	}
+
+	public void setNPCs(ArrayList<NonPlayerCharacter> givenNPCs){
+		npcs = givenNPCs;
+	}
+
+	public void addNPC(ArrayList<NonPlayerCharacter> givenNPCs){
+		npcs.addAll(givenNPCs);
+	}
+
+	public void addNPC(NonPlayerCharacter givenNPC){
+		npcs.add(givenNPC);
+	}
+
+	public ArrayList<NonPlayerCharacter> getNPCs(){
+		return npcs;
+	}
+
+	public ArrayList<CollisionBox> getNPCCollisions(){
+		ArrayList<CollisionBox> npcBoxes = new ArrayList<CollisionBox>();
+		for(int i = 0; i < npcs.size(); i++){
+			npcBoxes.add(npcs.get(i).getCollisionBox());
+		}
+		return npcBoxes;
+	}
+
+	public void hitNPCs(int damage, CollisionBox weaponBox){
+		for(int i = 0; i < npcs.size(); i++){
+			if(weaponBox.isColliding(npcs.get(i).getCollisionBox())){
+				npcs.get(i).damageHealth(damage);
+			}
+		}
 	}
 }

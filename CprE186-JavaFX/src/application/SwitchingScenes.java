@@ -3,7 +3,7 @@ package application;
 import java.util.ArrayList;
 
 import inanimateObjects.BackgroundObject;
-import inanimateObjects.MovableObject;
+import inanimateObjects.GameObject;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import levelConstants.Constants;
+import otherCharacters.NonPlayerCharacter;
 import playerCharacter.PlayerCharacter;
 
 public class SwitchingScenes extends Application {
@@ -62,13 +63,18 @@ public class SwitchingScenes extends Application {
 
 		Image heroflip = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
 		Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
+
+
 		Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
 		Image enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
 		Image demon = new Image("file:JavaFXGameCharacters/enemyd.png", 76, 100, true, false);
 		Image samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
 		Image werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
 
+		NonPlayerCharacter enemyOne = new NonPlayerCharacter(60, 24, enemy);
+		Courtyard.addNPC(enemyOne);
 		Image swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, false, false);
+		GameObject swordSlash = new GameObject(swordslash);
 
 		// The quit button
 		Button QuitButton = new Button("Quit");
@@ -193,17 +199,17 @@ public class SwitchingScenes extends Application {
 							if (playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoors(), Movement)) {
 								playerCharacter.setTexture(heroflip);
 								playerCharacter.moveToPosition(currentBackground.getAllBoxLocations(), Movement, 0);
-							}
-							else if(!playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoors().get(1), Movement)){
-								if(currentBackground.getBackgroundImage().equals((Courtyard.getBackgroundImage()))){
+							} else if (!playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoors().get(1),
+									Movement)) {
+								if (currentBackground.getBackgroundImage().equals((Courtyard.getBackgroundImage()))) {
 									currentBackground = Temple;
 									playerCharacter.setPosition(25, 25);
-								}
-								else if(currentBackground.getBackgroundImage().equals((Temple.getBackgroundImage()))){
+								} else if (currentBackground.getBackgroundImage()
+										.equals((Temple.getBackgroundImage()))) {
 									currentBackground = ForestLake;
 									playerCharacter.setPosition(25, 25);
-								}
-								else if(currentBackground.getBackgroundImage().equals((ForestLake.getBackgroundImage()))){
+								} else if (currentBackground.getBackgroundImage()
+										.equals((ForestLake.getBackgroundImage()))) {
 									currentBackground = Mountain;
 									playerCharacter.setPosition(25, 25);
 								}
@@ -222,7 +228,8 @@ public class SwitchingScenes extends Application {
 				// going left
 				if (input.contains(Keys[4])) {
 					if (KeyLast[4]) {
-						if (playerCharacter.getTexture().equals(hero) || playerCharacter.getTexture().equals(heroflip)) {
+						if (playerCharacter.getTexture().equals(hero)
+								|| playerCharacter.getTexture().equals(heroflip)) {
 							slash = true;
 						}
 
@@ -238,20 +245,32 @@ public class SwitchingScenes extends Application {
 
 				gc.drawImage(playerCharacter.getTexture(), playerCharacter.getTopLeftX(),
 						playerCharacter.getTopLeftY());
-				if(currentBackground.getBackgroundImage().equals(Mountain.getBackgroundImage())){
+				if (currentBackground.getBackgroundImage().equals(Mountain.getBackgroundImage())) {
 					AIcharacter.drawDragon();
 					gc.drawImage(dragon, AIcharacter.getX(), AIcharacter.getY());
 				}
-				if(slash){
-					if(playerCharacter.getTexture().equals(heroflip)){
-						gc.drawImage(swordslash, playerCharacter.getTopLeftX()+30, playerCharacter.getTopLeftY()-15);
+				if (slash) {
+					if (playerCharacter.getTexture().equals(heroflip)) {
+						swordSlash.setCollisionBox(playerCharacter.getTopLeftX() + 30,
+								playerCharacter.getTopLeftY() - 15);
+						gc.drawImage(swordSlash.getTexture(), swordSlash.getCollisionBox().getTopLeft().getX(),
+								swordSlash.getCollisionBox().getTopLeft().getY());
 					}
-					if(playerCharacter.getTexture().equals(hero)){
-						gc.drawImage(swordslash, (double)playerCharacter.getTopLeftX()+10, (double)playerCharacter.getTopLeftY()-15, (double)-30, (double)64);
+					if (playerCharacter.getTexture().equals(hero)) {
+						swordSlash.setCollisionBox(playerCharacter.getTopLeftX() + 10,
+								playerCharacter.getTopLeftY() - 15);
+						gc.drawImage(swordSlash.getTexture(), swordSlash.getCollisionBox().getTopLeft().getX(),
+								swordSlash.getCollisionBox().getTopLeft().getY(), (double) -30, (double) 64);
 					}
+					currentBackground.hitNPCs(10, swordSlash.getCollisionBox());
 				}
 
-
+				for (int i = 0; i < currentBackground.getNPCs().size(); i++) {
+					if (!currentBackground.getNPCs().get(i).isDead()) {
+						gc.drawImage(currentBackground.getNPCs().get(i).getTexture(), currentBackground.getNPCs().get(i).getCollisionBox().getTopLeft().getX(),
+								currentBackground.getNPCs().get(i).getCollisionBox().getTopLeft().getY());
+					}
+				}
 				// clear the canvas
 				// Background image clears canvas
 
