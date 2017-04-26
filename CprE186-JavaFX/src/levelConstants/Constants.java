@@ -2,7 +2,7 @@ package levelConstants;
 
 import java.util.ArrayList;
 
-import charactersAndObjects.CollisionBox;
+import inanimateObjects.CollisionBox;
 import javafx.scene.image.Image;
 
 public class Constants {

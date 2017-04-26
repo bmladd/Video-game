@@ -3,7 +3,7 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
-import charactersAndObjects.MovableObject;
+import inanimateObjects.MovableObject;
 import javafx.scene.image.Image;
 /*
  * class for creating and implementing AI characters in the game workspace utilizing 

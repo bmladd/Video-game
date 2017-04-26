@@ -2,9 +2,9 @@ package application;
 
 import java.util.ArrayList;
 
-import charactersAndObjects.BackgroundObject;
-import charactersAndObjects.CollisionBox;
-import charactersAndObjects.MovableObject;
+import inanimateObjects.BackgroundObject;
+import inanimateObjects.CollisionBox;
+import inanimateObjects.MovableObject;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;

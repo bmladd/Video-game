@@ -1,4 +1,4 @@
-package charactersAndObjects;
+package inanimateObjects;
 
 import javafx.scene.image.Image;
 

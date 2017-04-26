@@ -1,4 +1,4 @@
-package charactersAndObjects;
+package inanimateObjects;
 
 import java.util.ArrayList;
 
