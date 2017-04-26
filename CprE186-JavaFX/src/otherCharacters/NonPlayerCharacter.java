@@ -1,11 +1,15 @@
 package otherCharacters;
 
+import java.util.ArrayList;
+
 import inanimateObjects.CollisionBox;
 import inanimateObjects.MovableObject;
 import javafx.scene.image.Image;
+import levelConstants.Constants;
+import playerCharacter.PlayerCharacter;
 
 public class NonPlayerCharacter extends MovableObject {
-	protected int health;
+	protected double health;
 	protected boolean isDead;
 
 	public NonPlayerCharacter(CollisionBox givenBox, Image givenTexture) {
@@ -32,18 +36,37 @@ public class NonPlayerCharacter extends MovableObject {
 		health = 100;
 	}
 
-	public int getHealth(){
+	public double getHealth() {
 		return health;
 	}
 
-	public void damageHealth(int damage){
+	public void damageHealth(double damage) {
 		health -= damage;
-		if(health <= 0){
+		if (health <= 0) {
 			isDead = true;
 		}
 	}
 
-	public boolean isDead(){
+	public boolean isDead() {
 		return isDead;
+	}
+
+	public void handle(PlayerCharacter pc, ArrayList<CollisionBox> boxes) {
+		if (Math.abs(this.getTopLeftX() - pc.getTopLeftX()) > Constants.EnemyTolerance) {
+			if (this.getTopLeftX() > pc.getTopLeftX()) {
+				this.moveToPosition(boxes, -Constants.EnemyMove, 0);
+			}
+			if (this.getTopLeftX() < pc.getTopLeftX()) {
+				this.moveToPosition(boxes, Constants.EnemyMove, 0);
+			}
+		}
+		if (Math.abs(this.getTopLeftY() - pc.getTopLeftY()) > Constants.EnemyTolerance) {
+			if (this.getTopLeftY() > pc.getTopLeftY()) {
+				this.moveToPosition(boxes, 0, -Constants.EnemyMove);
+			}
+			if (this.getTopLeftY() < pc.getTopLeftY()) {
+				this.moveToPosition(boxes, 0, Constants.EnemyMove);
+			}
+		}
 	}
 }

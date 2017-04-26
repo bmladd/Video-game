@@ -21,13 +21,13 @@ public class Weapon extends GameObject{
 
 	public Weapon(Image givenTexture, String givenName){
 		super(givenTexture);
-		damage = 1;
+		damage = 10;
 		name = givenName;
 	}
 
 	public Weapon(Image givenTexture){
 		super(givenTexture);
-		damage = 1;
+		damage = 10;
 		name = "";
 	}
 

@@ -116,7 +116,8 @@ public class Constants {
 	public static Image HeroRight = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
 	public static Image HeroLeft = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
 
-
+	public static int EnemyMove = 1;
+	public static int EnemyTolerance = 10;
 	public static Image Enemy1 = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
 	public static Image Dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
 	public static Image Enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
@@ -124,4 +125,5 @@ public class Constants {
 	public static Image Samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
 	public static Image Werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
 
+	public static Image Swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, false, false);
 }

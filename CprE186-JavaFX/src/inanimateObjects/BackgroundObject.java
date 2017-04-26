@@ -2,8 +2,10 @@ package inanimateObjects;
 
 import java.util.ArrayList;
 
+import items.Weapon;
 import javafx.scene.image.Image;
 import otherCharacters.NonPlayerCharacter;
+import playerCharacter.PlayerCharacter;
 
 public class BackgroundObject {
 	private Image background;
@@ -145,11 +147,17 @@ public class BackgroundObject {
 		return npcBoxes;
 	}
 
-	public void hitNPCs(int damage, CollisionBox weaponBox){
+	public void hitNPCs(Weapon givenWeapon){
 		for(int i = 0; i < npcs.size(); i++){
-			if(weaponBox.isColliding(npcs.get(i).getCollisionBox())){
-				npcs.get(i).damageHealth(damage);
+			if(givenWeapon.getCollisionBox().isColliding(npcs.get(i).getCollisionBox())){
+				npcs.get(i).damageHealth(givenWeapon.getDamage());
 			}
+		}
+	}
+
+	public void handleNPCs(PlayerCharacter pc){
+		for(int i = 0; i < npcs.size(); i++){
+			npcs.get(i).handle(pc, getAllBoxLocations());
 		}
 	}
 }
