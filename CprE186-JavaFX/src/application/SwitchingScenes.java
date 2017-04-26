@@ -3,7 +3,6 @@ package application;
 import java.util.ArrayList;
 
 import inanimateObjects.BackgroundObject;
-import inanimateObjects.CollisionBox;
 import inanimateObjects.MovableObject;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -17,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import levelConstants.Constants;
+import playerCharacter.PlayerCharacter;
 
 public class SwitchingScenes extends Application {
 
@@ -58,7 +58,7 @@ public class SwitchingScenes extends Application {
 
 		// Maps
 		Image hero = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
-		MovableObject playerCharacter = new MovableObject(24, 24, hero);
+		PlayerCharacter playerCharacter = new PlayerCharacter(24, 24, hero);
 
 		Image heroflip = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
 		Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
@@ -207,7 +207,7 @@ public class SwitchingScenes extends Application {
 									currentBackground = Mountain;
 									playerCharacter.setPosition(25, 25);
 								}
-								
+
 							}
 						}
 
@@ -250,7 +250,7 @@ public class SwitchingScenes extends Application {
 						gc.drawImage(swordslash, (double)playerCharacter.getTopLeftX()+10, (double)playerCharacter.getTopLeftY()-15, (double)-30, (double)64);
 					}
 				}
-				
+
 
 				// clear the canvas
 				// Background image clears canvas

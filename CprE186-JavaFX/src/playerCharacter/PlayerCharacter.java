@@ -21,4 +21,6 @@ public class PlayerCharacter extends MovableObject {
 	public PlayerCharacter(int xPosition, int yPosition, int givenWidth, int givenHeight, Image givenTexture) {
 		super(xPosition, yPosition, givenWidth, givenHeight, givenTexture);
 	}
+
+
 }
