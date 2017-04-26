@@ -117,7 +117,9 @@ public class Constants {
 	public static Image HeroLeft = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
 
 	public static int EnemyMove = 1;
-	public static int EnemyTolerance = 10;
+	public static int EnemyTolerance = 50;
+	public static int EnemyAttackTolerance = 50 + 30;
+	public static int EnemyTimeBetweenAttack = 60;
 	public static Image Enemy1 = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
 	public static Image Dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
 	public static Image Enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
