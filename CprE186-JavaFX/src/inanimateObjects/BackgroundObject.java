@@ -7,7 +7,7 @@ import otherCharacters.NonPlayerCharacter;
 
 public class BackgroundObject {
 	private Image background;
-	private ArrayList<GameObject> backObjects;
+	private ArrayList<ImmovableObject> backObjects;
 	private ArrayList<MovableObject> backMovingObjects;
 	private ArrayList<CollisionBox> cBoxes;
 	private ArrayList<CollisionBox> doors;
@@ -16,7 +16,7 @@ public class BackgroundObject {
 
 	public BackgroundObject(Image givenBackground) {
 		background = givenBackground;
-		backObjects = new ArrayList<GameObject>();
+		backObjects = new ArrayList<ImmovableObject>();
 		backMovingObjects = new ArrayList<MovableObject>();
 		cBoxes = new ArrayList<CollisionBox>();
 		doors = new ArrayList<CollisionBox>();
@@ -53,11 +53,11 @@ public class BackgroundObject {
 		return background;
 	}
 
-	public void addGameObject(GameObject objToAdd) {
+	public void addGameObject(ImmovableObject objToAdd) {
 		backObjects.add(objToAdd);
 	}
 
-	public void addGameObject(ArrayList<GameObject> objsToAdd) {
+	public void addGameObject(ArrayList<ImmovableObject> objsToAdd) {
 		backObjects.addAll(objsToAdd);
 	}
 
@@ -73,11 +73,11 @@ public class BackgroundObject {
 		backMovingObjects.clear();
 	}
 
-	public ArrayList<GameObject> getGameObjects() {
+	public ArrayList<ImmovableObject> getGameObjects() {
 		return backObjects;
 	}
 
-	public void setGameObjects(ArrayList<GameObject> gameObjects) {
+	public void setGameObjects(ArrayList<ImmovableObject> gameObjects) {
 		backObjects = gameObjects;
 	}
 

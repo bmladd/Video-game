@@ -1,8 +1,9 @@
-package application;
+package otherCharacters;
 	
 import java.util.ArrayList;
 import java.util.List;
 
+import application.SwitchingScenes;
 import inanimateObjects.MovableObject;
 import javafx.scene.image.Image;
 /*

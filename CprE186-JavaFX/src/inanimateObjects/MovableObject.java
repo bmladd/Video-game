@@ -84,12 +84,4 @@ public class MovableObject extends GameObject {
 	public void moveToPosition(ArrayList<CollisionBox> boxes, int xMove, int yMove) {
 		super.getCollisionBox().translateBoxWithCollision(boxes, xMove, yMove);
 	}
-
-	public int getTopLeftX(){
-		return (int) super.getCollisionBox().getTopLeft().getX();
-	}
-
-	public int getTopLeftY(){
-		return (int) super.getCollisionBox().getTopLeft().getY();
-	}
 }
