@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import levelConstants.Constants;
 import playerCharacter.PlayerCharacter;
 
-public class NonPlayerCharacter extends MovableObject {
+public class DefaultNPC extends MovableObject implements NonPlayerCharacter {
 	protected double health;
 	protected boolean isDead;
 	protected boolean facingLeft;
@@ -18,7 +18,7 @@ public class NonPlayerCharacter extends MovableObject {
 	protected Weapon weap;
 	protected int timeCtr;
 
-	public NonPlayerCharacter(CollisionBox givenBox, Image givenTexture) {
+	public DefaultNPC(CollisionBox givenBox, Image givenTexture) {
 		super(givenBox, givenTexture);
 		isDead = false;
 		health = 100;
@@ -27,7 +27,7 @@ public class NonPlayerCharacter extends MovableObject {
 		weap = WeaponList.DefaultWeapon;
 	}
 
-	public NonPlayerCharacter(int xPosition, int yPosition, Image givenTexture) {
+	public DefaultNPC(int xPosition, int yPosition, Image givenTexture) {
 		super(xPosition, yPosition, givenTexture);
 		isDead = false;
 		health = 100;
@@ -36,7 +36,7 @@ public class NonPlayerCharacter extends MovableObject {
 		weap = WeaponList.DefaultWeapon;
 	}
 
-	public NonPlayerCharacter(Image givenTexture) {
+	public DefaultNPC(Image givenTexture) {
 		super(givenTexture);
 		isDead = false;
 		health = 100;
@@ -45,7 +45,7 @@ public class NonPlayerCharacter extends MovableObject {
 		weap = WeaponList.DefaultWeapon;
 	}
 
-	public NonPlayerCharacter(int xPosition, int yPosition, int givenWidth, int givenHeight, Image givenTexture) {
+	public DefaultNPC(int xPosition, int yPosition, int givenWidth, int givenHeight, Image givenTexture) {
 		super(xPosition, yPosition, givenWidth, givenHeight, givenTexture);
 		isDead = false;
 		health = 100;
@@ -54,10 +54,18 @@ public class NonPlayerCharacter extends MovableObject {
 		weap = WeaponList.DefaultWeapon;
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#getHealth()
+	 */
+	@Override
 	public double getHealth() {
 		return health;
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#damageHealth(double)
+	 */
+	@Override
 	public void damageHealth(double damage) {
 		health -= damage;
 		if (health <= 0) {
@@ -65,10 +73,18 @@ public class NonPlayerCharacter extends MovableObject {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#isDead()
+	 */
+	@Override
 	public boolean isDead() {
 		return isDead;
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#handle(playerCharacter.PlayerCharacter, java.util.ArrayList)
+	 */
+	@Override
 	public void handle(PlayerCharacter pc, ArrayList<CollisionBox> boxes) {
 		timeCtr++;
 		facingLeft = this.getTopLeftX() < pc.getTopLeftX();
@@ -103,18 +119,34 @@ public class NonPlayerCharacter extends MovableObject {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#facingLeft()
+	 */
+	@Override
 	public boolean facingLeft(){
 		return facingLeft;
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#isAttacking()
+	 */
+	@Override
 	public boolean isAttacking(){
 		return attacking;
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#getWeapon()
+	 */
+	@Override
 	public Weapon getWeapon(){
 		return weap;
 	}
 
+	/* (non-Javadoc)
+	 * @see otherCharacters.NonPlayerCharacter#setWeapon(items.Weapon)
+	 */
+	@Override
 	public void setWeapon(Weapon givenWeapon){
 		weap = givenWeapon;
 	}

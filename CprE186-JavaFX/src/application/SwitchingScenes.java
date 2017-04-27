@@ -18,7 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import levelConstants.Constants;
 import otherCharacters.AIcharacter;
-import otherCharacters.NonPlayerCharacter;
+import otherCharacters.DefaultNPC;
 import playerCharacter.PlayerCharacter;
 
 public class SwitchingScenes extends Application {
@@ -62,10 +62,10 @@ public class SwitchingScenes extends Application {
 		// Maps
 		PlayerCharacter playerCharacter = new PlayerCharacter(24, 24, Constants.HeroRight);
 
-		NonPlayerCharacter enemyOne = new NonPlayerCharacter(160, 24, Constants.Enemy1);
+		DefaultNPC enemyOne = new DefaultNPC(160, 24, Constants.Enemy1);
 		Courtyard.addNPC(enemyOne);
 
-		NonPlayerCharacter dragon = new NonPlayerCharacter((int) AIcharacter.getX(), (int) AIcharacter.getY(),
+		DefaultNPC dragon = new DefaultNPC((int) AIcharacter.getX(), (int) AIcharacter.getY(),
 				Constants.Dragon);
 		Mountain.addNPC(dragon);
 

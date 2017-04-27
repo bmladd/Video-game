@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import items.Weapon;
 import javafx.scene.image.Image;
-import otherCharacters.NonPlayerCharacter;
+import otherCharacters.DefaultNPC;
 import playerCharacter.PlayerCharacter;
 
 public class BackgroundObject {
@@ -14,7 +14,7 @@ public class BackgroundObject {
 	private ArrayList<CollisionBox> cBoxes;
 	private ArrayList<CollisionBox> doors;
 	private ArrayList<CollisionBox> doorsExt;
-	private ArrayList<NonPlayerCharacter> npcs;
+	private ArrayList<DefaultNPC> npcs;
 
 	public BackgroundObject(Image givenBackground) {
 		background = givenBackground;
@@ -23,7 +23,7 @@ public class BackgroundObject {
 		cBoxes = new ArrayList<CollisionBox>();
 		doors = new ArrayList<CollisionBox>();
 		doorsExt = new ArrayList<CollisionBox>();
-		npcs = new ArrayList<NonPlayerCharacter>();
+		npcs = new ArrayList<DefaultNPC>();
 
 	}
 
@@ -123,19 +123,19 @@ public class BackgroundObject {
 		doorsExt.add(doorToAdd);
 	}
 
-	public void setNPCs(ArrayList<NonPlayerCharacter> givenNPCs){
+	public void setNPCs(ArrayList<DefaultNPC> givenNPCs){
 		npcs = givenNPCs;
 	}
 
-	public void addNPC(ArrayList<NonPlayerCharacter> givenNPCs){
+	public void addNPC(ArrayList<DefaultNPC> givenNPCs){
 		npcs.addAll(givenNPCs);
 	}
 
-	public void addNPC(NonPlayerCharacter givenNPC){
+	public void addNPC(DefaultNPC givenNPC){
 		npcs.add(givenNPC);
 	}
 
-	public ArrayList<NonPlayerCharacter> getNPCs(){
+	public ArrayList<DefaultNPC> getNPCs(){
 		return npcs;
 	}
 
