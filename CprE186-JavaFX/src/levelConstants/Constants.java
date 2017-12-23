@@ -59,7 +59,7 @@ public class Constants {
 
 
 	public static Image ForestLake = new Image("file:JavaFXGameMaps/ForestLake.png");
-	
+
 	public static ArrayList<CollisionBox> getForestLakeCollisions() {
 		CollisionBox FBox1 = new CollisionBox(172, 168, 420, 36);
 		CollisionBox FBox2 = new CollisionBox(430, 500, 420, 36);
@@ -107,10 +107,25 @@ public class Constants {
 		doors.add(TDoor2);
 		return doors;
 	}
-	
-	
+
+
 
 	public static Image Options = new Image("file:JavaFXGameMaps/GameOver.png");
 	public static Image TitleScreen = new Image("file:JavaFXGameMaps/TitleScreen.png");
 
+	public static Image HeroRight = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
+	public static Image HeroLeft = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
+
+	public static int EnemyMove = 1;
+	public static int EnemyTolerance = 50;
+	public static int EnemyAttackTolerance = 50 + 30;
+	public static int EnemyTimeBetweenAttack = 60;
+	public static Image Enemy1 = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
+	public static Image Dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
+	public static Image Enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
+	public static Image Demon = new Image("file:JavaFXGameCharacters/enemyd.png", 76, 100, true, false);
+	public static Image Samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
+	public static Image Werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
+
+	public static Image Swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, false, false);
 }

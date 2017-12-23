@@ -1,49 +1,27 @@
 package otherCharacters;
 
+import java.util.ArrayList;
+
 import inanimateObjects.CollisionBox;
-import inanimateObjects.MovableObject;
-import javafx.scene.image.Image;
+import items.Weapon;
+import playerCharacter.PlayerCharacter;
 
-public class NonPlayerCharacter extends MovableObject {
-	protected int health;
-	protected boolean isDead;
+public interface NonPlayerCharacter {
 
-	public NonPlayerCharacter(CollisionBox givenBox, Image givenTexture) {
-		super(givenBox, givenTexture);
-		isDead = false;
-		health = 100;
-	}
+	double getHealth();
 
-	public NonPlayerCharacter(int xPosition, int yPosition, Image givenTexture) {
-		super(xPosition, yPosition, givenTexture);
-		isDead = false;
-		health = 100;
-	}
+	void damageHealth(double damage);
 
-	public NonPlayerCharacter(Image givenTexture) {
-		super(givenTexture);
-		isDead = false;
-		health = 100;
-	}
+	boolean isDead();
 
-	public NonPlayerCharacter(int xPosition, int yPosition, int givenWidth, int givenHeight, Image givenTexture) {
-		super(xPosition, yPosition, givenWidth, givenHeight, givenTexture);
-		isDead = false;
-		health = 100;
-	}
+	void handle(PlayerCharacter pc, ArrayList<CollisionBox> boxes);
 
-	public int getHealth(){
-		return health;
-	}
+	boolean facingLeft();
 
-	public void damageHealth(int damage){
-		health -= damage;
-		if(health <= 0){
-			isDead = true;
-		}
-	}
+	boolean isAttacking();
 
-	public boolean isDead(){
-		return isDead;
-	}
+	Weapon getWeapon();
+
+	void setWeapon(Weapon givenWeapon);
+
 }

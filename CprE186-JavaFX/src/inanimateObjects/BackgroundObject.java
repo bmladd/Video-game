@@ -2,26 +2,28 @@ package inanimateObjects;
 
 import java.util.ArrayList;
 
+import items.Weapon;
 import javafx.scene.image.Image;
-import otherCharacters.NonPlayerCharacter;
+import otherCharacters.DefaultNPC;
+import playerCharacter.PlayerCharacter;
 
 public class BackgroundObject {
 	private Image background;
-	private ArrayList<GameObject> backObjects;
+	private ArrayList<ImmovableObject> backObjects;
 	private ArrayList<MovableObject> backMovingObjects;
 	private ArrayList<CollisionBox> cBoxes;
 	private ArrayList<CollisionBox> doors;
 	private ArrayList<CollisionBox> doorsExt;
-	private ArrayList<NonPlayerCharacter> npcs;
+	private ArrayList<DefaultNPC> npcs;
 
 	public BackgroundObject(Image givenBackground) {
 		background = givenBackground;
-		backObjects = new ArrayList<GameObject>();
+		backObjects = new ArrayList<ImmovableObject>();
 		backMovingObjects = new ArrayList<MovableObject>();
 		cBoxes = new ArrayList<CollisionBox>();
 		doors = new ArrayList<CollisionBox>();
 		doorsExt = new ArrayList<CollisionBox>();
-		npcs = new ArrayList<NonPlayerCharacter>();
+		npcs = new ArrayList<DefaultNPC>();
 
 	}
 
@@ -53,11 +55,11 @@ public class BackgroundObject {
 		return background;
 	}
 
-	public void addGameObject(GameObject objToAdd) {
+	public void addGameObject(ImmovableObject objToAdd) {
 		backObjects.add(objToAdd);
 	}
 
-	public void addGameObject(ArrayList<GameObject> objsToAdd) {
+	public void addGameObject(ArrayList<ImmovableObject> objsToAdd) {
 		backObjects.addAll(objsToAdd);
 	}
 
@@ -73,11 +75,11 @@ public class BackgroundObject {
 		backMovingObjects.clear();
 	}
 
-	public ArrayList<GameObject> getGameObjects() {
+	public ArrayList<ImmovableObject> getGameObjects() {
 		return backObjects;
 	}
 
-	public void setGameObjects(ArrayList<GameObject> gameObjects) {
+	public void setGameObjects(ArrayList<ImmovableObject> gameObjects) {
 		backObjects = gameObjects;
 	}
 
@@ -121,19 +123,19 @@ public class BackgroundObject {
 		doorsExt.add(doorToAdd);
 	}
 
-	public void setNPCs(ArrayList<NonPlayerCharacter> givenNPCs){
+	public void setNPCs(ArrayList<DefaultNPC> givenNPCs){
 		npcs = givenNPCs;
 	}
 
-	public void addNPC(ArrayList<NonPlayerCharacter> givenNPCs){
+	public void addNPC(ArrayList<DefaultNPC> givenNPCs){
 		npcs.addAll(givenNPCs);
 	}
 
-	public void addNPC(NonPlayerCharacter givenNPC){
+	public void addNPC(DefaultNPC givenNPC){
 		npcs.add(givenNPC);
 	}
 
-	public ArrayList<NonPlayerCharacter> getNPCs(){
+	public ArrayList<DefaultNPC> getNPCs(){
 		return npcs;
 	}
 
@@ -145,11 +147,17 @@ public class BackgroundObject {
 		return npcBoxes;
 	}
 
-	public void hitNPCs(int damage, CollisionBox weaponBox){
+	public void hitNPCs(Weapon givenWeapon){
 		for(int i = 0; i < npcs.size(); i++){
-			if(weaponBox.isColliding(npcs.get(i).getCollisionBox())){
-				npcs.get(i).damageHealth(damage);
+			if(givenWeapon.getCollisionBox().isColliding(npcs.get(i).getCollisionBox())){
+				npcs.get(i).damageHealth(givenWeapon.getDamage());
 			}
+		}
+	}
+
+	public void handleNPCs(PlayerCharacter pc){
+		for(int i = 0; i < npcs.size(); i++){
+			npcs.get(i).handle(pc, getAllBoxLocations());
 		}
 	}
 }

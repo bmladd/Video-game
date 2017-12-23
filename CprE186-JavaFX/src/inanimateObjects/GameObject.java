@@ -2,23 +2,16 @@ package inanimateObjects;
 
 import javafx.scene.image.Image;
 
-/**
- * This is a class which encapsulates all of the necessary methods for unmoving
- * objects in our game.
- *
- * @author Isaac
- *
- */
-public class GameObject {
+public abstract class GameObject {
 	/**
 	 * This GameObject's CollisionBox
 	 */
-	private CollisionBox collision;
+	protected CollisionBox collision;
 
 	/**
 	 * This GameObject's texture
 	 */
-	private Image texture;
+	protected Image texture;
 
 	/**
 	 * Constructor for GameObject that takes a CollisionBox and an Image
@@ -81,7 +74,12 @@ public class GameObject {
 		collision = null;
 		texture = givenTexture;
 	}
-
+	/**
+	 * Sets the texture of this GameObject
+	 *
+	 * @param givenTexture
+	 *            The texture to change this GameObject's texture to
+	 */
 	/**
 	 * Sets the texture of this GameObject
 	 *
@@ -164,5 +162,13 @@ public class GameObject {
 			collision.moveBoxTo(xPos, yPos);
 		}
 
+	}
+
+	public int getTopLeftX(){
+		return (int) getCollisionBox().getTopLeft().getX();
+	}
+
+	public int getTopLeftY(){
+		return (int) getCollisionBox().getTopLeft().getY();
 	}
 }

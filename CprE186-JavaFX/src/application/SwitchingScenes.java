@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import inanimateObjects.BackgroundObject;
 import inanimateObjects.GameObject;
+import items.Weapon;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -16,7 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import levelConstants.Constants;
-import otherCharacters.NonPlayerCharacter;
+import otherCharacters.AIcharacter;
+import otherCharacters.DefaultNPC;
 import playerCharacter.PlayerCharacter;
 
 public class SwitchingScenes extends Application {
@@ -58,23 +60,14 @@ public class SwitchingScenes extends Application {
 		BackgroundObject TitleScreen = new BackgroundObject(Constants.TitleScreen);
 
 		// Maps
-		Image hero = new Image("file:JavaFXGameCharacters/heroflip.png", 50, 64, true, false);
-		PlayerCharacter playerCharacter = new PlayerCharacter(24, 24, hero);
+		PlayerCharacter playerCharacter = new PlayerCharacter(24, 24, Constants.HeroRight);
 
-		Image heroflip = new Image("file:JavaFXGameCharacters/hero.png", 50, 64, true, false);
-		Image enemy = new Image("file:JavaFXGameCharacters/enemya.png", 50, 64, true, false);
-
-
-		Image dragon = new Image("file:JavaFXGameCharacters/enemyb.png", 270, 200, true, false);
-		Image enemy2 = new Image("file:JavaFXGameCharacters/enemyc.png", 50, 64, true, false);
-		Image demon = new Image("file:JavaFXGameCharacters/enemyd.png", 76, 100, true, false);
-		Image samurai = new Image("file:JavaFXGameCharacters/enemysamurai.png", 76, 100, true, false);
-		Image werewolf = new Image("file:JavaFXGameCharacters/enemywolf.png", 50, 64, true, false);
-
-		NonPlayerCharacter enemyOne = new NonPlayerCharacter(60, 24, enemy);
+		DefaultNPC enemyOne = new DefaultNPC(160, 24, Constants.Enemy1);
 		Courtyard.addNPC(enemyOne);
-		Image swordslash = new Image("file:JavaFXGameCharacters/swordslash.png", 50, 64, false, false);
-		GameObject swordSlash = new GameObject(swordslash);
+
+		DefaultNPC dragon = new DefaultNPC((int) AIcharacter.getX(), (int) AIcharacter.getY(),
+				Constants.Dragon);
+		Mountain.addNPC(dragon);
 
 		// The quit button
 		Button QuitButton = new Button("Quit");
@@ -151,12 +144,12 @@ public class SwitchingScenes extends Application {
 				if (input.contains(Keys[1])) {
 					if (KeyLast[1]) {
 						if (playerCharacter.getCollisionBox().canMoveX(Constants.getLevelWalls(), -Movement)) {
-							playerCharacter.setTexture(hero);
+							playerCharacter.setTexture(Constants.HeroRight);
 							playerCharacter.moveToPosition(currentBackground.getAllBoxLocations(), -Movement, 0);
 						} else if (!playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoorsExtended(),
 								-Movement)) {
 							if (playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoors(), -Movement)) {
-								playerCharacter.setTexture(hero);
+								playerCharacter.setTexture(Constants.HeroRight);
 								playerCharacter.moveToPosition(currentBackground.getAllBoxLocations(), -Movement, 0);
 							}
 						}
@@ -192,12 +185,12 @@ public class SwitchingScenes extends Application {
 				if (input.contains(Keys[3])) {
 					if (KeyLast[3]) {
 						if (playerCharacter.getCollisionBox().canMoveX(Constants.getLevelWalls(), Movement)) {
-							playerCharacter.setTexture(heroflip);
+							playerCharacter.setTexture(Constants.HeroLeft);
 							playerCharacter.moveToPosition(currentBackground.getAllBoxLocations(), Movement, 0);
 						} else if (!playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoorsExtended(),
 								Movement)) {
 							if (playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoors(), Movement)) {
-								playerCharacter.setTexture(heroflip);
+								playerCharacter.setTexture(Constants.HeroLeft);
 								playerCharacter.moveToPosition(currentBackground.getAllBoxLocations(), Movement, 0);
 							} else if (!playerCharacter.getCollisionBox().canMoveX(currentBackground.getDoors().get(1),
 									Movement)) {
@@ -225,17 +218,13 @@ public class SwitchingScenes extends Application {
 				} else {
 					KeyLast[3] = false;
 				}
-				// going left
+				// slashing
 				if (input.contains(Keys[4])) {
 					if (KeyLast[4]) {
-						if (playerCharacter.getTexture().equals(hero)
-								|| playerCharacter.getTexture().equals(heroflip)) {
-							slash = true;
-						}
-
+						slash = false;
 					} else {
 						KeyLast[4] = true;
-
+						slash = true;
 					}
 
 				} else {
@@ -245,32 +234,54 @@ public class SwitchingScenes extends Application {
 
 				gc.drawImage(playerCharacter.getTexture(), playerCharacter.getTopLeftX(),
 						playerCharacter.getTopLeftY());
-				if (currentBackground.getBackgroundImage().equals(Mountain.getBackgroundImage())) {
-					AIcharacter.drawDragon();
-					gc.drawImage(dragon, AIcharacter.getX(), AIcharacter.getY());
-				}
 				if (slash) {
-					if (playerCharacter.getTexture().equals(heroflip)) {
-						swordSlash.setCollisionBox(playerCharacter.getTopLeftX() + 30,
+					if (playerCharacter.getTexture().equals(Constants.HeroLeft)) {
+						playerCharacter.getWeapon().setCollisionBox(playerCharacter.getTopLeftX() + 30,
 								playerCharacter.getTopLeftY() - 15);
-						gc.drawImage(swordSlash.getTexture(), swordSlash.getCollisionBox().getTopLeft().getX(),
-								swordSlash.getCollisionBox().getTopLeft().getY());
+						gc.drawImage(playerCharacter.getWeapon().getTexture(),
+								playerCharacter.getWeapon().getCollisionBox().getTopLeft().getX(),
+								playerCharacter.getWeapon().getCollisionBox().getTopLeft().getY());
 					}
-					if (playerCharacter.getTexture().equals(hero)) {
-						swordSlash.setCollisionBox(playerCharacter.getTopLeftX() + 10,
+					if (playerCharacter.getTexture().equals(Constants.HeroRight)) {
+						playerCharacter.getWeapon().setCollisionBox(playerCharacter.getTopLeftX() + 10,
 								playerCharacter.getTopLeftY() - 15);
-						gc.drawImage(swordSlash.getTexture(), swordSlash.getCollisionBox().getTopLeft().getX(),
-								swordSlash.getCollisionBox().getTopLeft().getY(), (double) -30, (double) 64);
+						gc.drawImage(playerCharacter.getWeapon().getTexture(),
+								playerCharacter.getWeapon().getCollisionBox().getTopLeft().getX(),
+								playerCharacter.getWeapon().getCollisionBox().getTopLeft().getY(), (double) -30,
+								(double) 64);
 					}
-					currentBackground.hitNPCs(10, swordSlash.getCollisionBox());
+					currentBackground.hitNPCs(playerCharacter.getWeapon());
 				}
-
 				for (int i = 0; i < currentBackground.getNPCs().size(); i++) {
 					if (!currentBackground.getNPCs().get(i).isDead()) {
-						gc.drawImage(currentBackground.getNPCs().get(i).getTexture(), currentBackground.getNPCs().get(i).getCollisionBox().getTopLeft().getX(),
+						gc.drawImage(currentBackground.getNPCs().get(i).getTexture(),
+								currentBackground.getNPCs().get(i).getCollisionBox().getTopLeft().getX(),
 								currentBackground.getNPCs().get(i).getCollisionBox().getTopLeft().getY());
+						if (currentBackground.getNPCs().get(i).isAttacking()) {
+							if (currentBackground.getNPCs().get(i).facingLeft()) {
+								currentBackground.getNPCs().get(i).getWeapon().setCollisionBox(
+										currentBackground.getNPCs().get(i).getTopLeftX() + 30,
+										currentBackground.getNPCs().get(i).getTopLeftY() - 15);
+								gc.drawImage(currentBackground.getNPCs().get(i).getWeapon().getTexture(),
+										currentBackground.getNPCs().get(i).getWeapon().getCollisionBox().getTopLeft()
+												.getX(),
+										currentBackground.getNPCs().get(i).getWeapon().getCollisionBox().getTopLeft()
+												.getY());
+							} else {
+								currentBackground.getNPCs().get(i).getWeapon().setCollisionBox(
+										currentBackground.getNPCs().get(i).getTopLeftX() + 10,
+										currentBackground.getNPCs().get(i).getTopLeftY() - 15);
+								gc.drawImage(currentBackground.getNPCs().get(i).getWeapon().getTexture(),
+										currentBackground.getNPCs().get(i).getWeapon().getCollisionBox().getTopLeft()
+												.getX(),
+										currentBackground.getNPCs().get(i).getWeapon().getCollisionBox().getTopLeft()
+												.getY(),
+										(double) -30, (double) 64);
+							}
+						}
 					}
 				}
+				currentBackground.handleNPCs(playerCharacter);
 				// clear the canvas
 				// Background image clears canvas
 
